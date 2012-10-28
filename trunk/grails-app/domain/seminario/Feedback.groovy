@@ -13,8 +13,8 @@ class Feedback {
 	/* Automatic timestamping of GORM */
 //	Date	dateCreated
 //	Date	lastUpdated
-	
-	static belongsTo	= [application: Application, rol: Rol]	
+
+	static belongsTo = [application: Application, rol: Rol]	
 	
     static mapping = {
     }
