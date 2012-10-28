@@ -1,8 +1,12 @@
+<%@ page import="seminario.Application" %>
+<!doctype html>
 <html>
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="layout" content="main" />
-  <title>Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="layout" content="authlayout" />
+	<g:set var="entityName" value="${message(code: 'authentication.label', default: 'Authentication')}" />
+	<title><g:message code="default.authentication.label" /></title>
 </head>
 <body>
   <g:if test="${flash.message}">
@@ -30,6 +34,8 @@
         </tr>
       </tbody>
     </table>
-  </g:form>
+  </g:form>	
 </body>
+
 </html>
+
