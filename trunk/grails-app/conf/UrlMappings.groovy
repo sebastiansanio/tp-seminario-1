@@ -5,7 +5,7 @@ class UrlMappings {
 		/* 
 		 * Pages without controller 
 		 */
-//		"/"				(view:"/index")
+		//"/"				(view:"/index")
 		"/about"		(view:"/siteinfo/about")
 		"/blog"			(view:"/siteinfo/blog")
 		"/systeminfo"	(view:"/siteinfo/systeminfo")
@@ -21,7 +21,7 @@ class UrlMappings {
 			controller	= 'home'
 			action		= { 'index' }
             view		= { 'index' }
-        }
+        } 
 		"/$controller/$action?/$id?"{
 			constraints {
 				controller(matches:/^((?!(api|mobile|web)).*)$/)
