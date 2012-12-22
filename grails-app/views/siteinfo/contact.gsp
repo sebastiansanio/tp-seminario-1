@@ -58,7 +58,7 @@
 			
 			<div class="span8">
 				<iframe width="100%" scrolling="no" height="300" frameborder="0" 
-					src="http://maps.google.ca/maps?q=-34.617705,-58.368154&amp;num=1&amp;hl=es-419&amp;ie=UTF8&amp;t=m&amp;z=14&amp;ll=-34.61767,-58.368301&amp;output=embed"
+					src="http://maps.google.ca/maps?f=q&source=s_q&hl=en&geocode=&q=123+Future+Ave,San+Francisco,+CA+94107&ie=UTF8&hq=&hnear=Downtown,San+Francisco,+CA+94107&z=12&iwloc=near&output=embed"
 		 			marginwidth="0" marginheight="0"></iframe>
 			</div>
 		</div>
