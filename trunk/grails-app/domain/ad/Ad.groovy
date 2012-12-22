@@ -5,17 +5,16 @@ class Ad {
 
 	Date	dateCreated
 	Date	lastUpdated
-	AdType adType
 	String description
 	
 	
-	static belongsTo	= [user: User]	
+	static belongsTo	= [user: User,adType: AdType]	
 	static hasMany		= [applications: Application]	
 	
-    static mapping = {
-    }
-    
+   
 	static constraints = {
+		dateCreated nullable: true
+		lastUpdated nullable: true
     }
 	
 	public String toString() {
