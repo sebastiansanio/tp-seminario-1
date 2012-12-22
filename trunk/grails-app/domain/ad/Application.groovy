@@ -9,7 +9,7 @@ class Application {
 	User user
 	String description
 	
-	static belongsTo	= [ad: Ad]	// tells GORM to cascade commands: e.g., delete this object if the "parent" is deleted.
+	static belongsTo	= [ad: Ad]
 	static hasOne		= [feedback: Feedback]	
 
     

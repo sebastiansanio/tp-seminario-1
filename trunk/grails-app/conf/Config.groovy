@@ -92,3 +92,4 @@ log4j = {
 
 grails.config.defaults.locations = [KickstartResources]
 grails.config.defaults.locations = [KickstartResources]
+grails.config.defaults.locations = [KickstartResources]

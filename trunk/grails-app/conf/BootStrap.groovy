@@ -7,12 +7,13 @@ class BootStrap {
     def init = { servletContext ->
 		def user = new User(username:"seminario", passwordHash: new Sha256Hash("seminario").toHex())
 		user.addToPermissions("*:*")
-		user.save(flush:true)
+		user.save()
 		
 		def adType = new AdType(code:1,description: 'Oferta')
-		adType.save(flush:true)
+		adType.save()
 		adType = new AdType(code:2,description: "Deseo")
-		adType.save(flush:true)
+		adType.save()
+		
 		
     }
     def destroy = {
