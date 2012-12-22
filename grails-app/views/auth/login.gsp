@@ -1,4 +1,3 @@
-<%@ page import="seminario.Application" %>
 <!doctype html>
 <html>
 
