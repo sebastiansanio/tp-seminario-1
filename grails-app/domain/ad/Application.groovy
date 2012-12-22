@@ -11,12 +11,12 @@ class Application {
 	
 	static belongsTo	= [ad: Ad]	// tells GORM to cascade commands: e.g., delete this object if the "parent" is deleted.
 	static hasOne		= [feedback: Feedback]	
-	
-    static mapping = {
-    }
+
     
 	static constraints = {
     	feedback nullable: true
+		dateCreated nullable: true
+		lastUpdated nullable: true
 			
 	}
 	

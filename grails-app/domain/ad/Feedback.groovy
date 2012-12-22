@@ -6,15 +6,13 @@ class Feedback {
 	Date	dateCreated
 	Date	lastUpdated
 	String note
-	User user
-	
-	
+		
 	static belongsTo	= [application: Application]	
 	
-    static mapping = {
-    }
-    
+     
 	static constraints = {
+		dateCreated nullable: true
+		lastUpdated nullable: true
     }
 	
 	public String toString() {
