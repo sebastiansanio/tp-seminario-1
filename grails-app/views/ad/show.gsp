@@ -62,6 +62,14 @@
 			</tr>
 		
 		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.minimumReputation.label" default="Minimum reputation" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "minimumReputation")}</td>
+				
+			</tr>
+		
+		
 		
 		<g:if test="${!SecurityUtils.subject.getPrincipal().equals(adInstance.user.username) }">
 			<tr class="prop">

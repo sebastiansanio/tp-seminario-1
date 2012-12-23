@@ -27,6 +27,8 @@
 			
 				<g:sortableColumn property="adStatus" title="${message(code: 'ad.adStatus.label', default: 'Ad Status')}" />
 			
+				<g:sortableColumn property="minimumReputation" title="${message(code: 'ad.minimumReputation.label', default: 'Minimum reputation')}" />
+			
 			</tr>
 		</thead>
 		<tbody>
@@ -41,6 +43,8 @@
 				<td><g:link action="show" id="${adInstance.id}">${fieldValue(bean: adInstance, field: "description")}</g:link></td>
 			
 				<td>${fieldValue(bean: adInstance, field: "adStatus")}</td>
+			
+				<td>${fieldValue(bean: adInstance, field: "minimumReputation")}</td>
 			
 			</tr>
 		</g:each>

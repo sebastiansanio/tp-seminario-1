@@ -33,4 +33,12 @@
 				</div>
 			</div>
 
+			<div class="control-group fieldcontain ${hasErrors(bean: adInstance, field: 'minimumReputation', 'error')} ">
+				<label for="description" class="control-label"><g:message code="ad.minimumReputation.label" default="Minimun reputation" /></label>
+				<div class="controls">
+					<g:field type="number" name="minimumReputation" value="${adInstance?.minimumReputation}"/>
+					<span class="help-inline">${hasErrors(bean: adInstance, field: 'minimumReputation', 'error')}</span>
+				</div>
+			</div>
+
 
