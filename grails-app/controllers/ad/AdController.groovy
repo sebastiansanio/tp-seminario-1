@@ -8,14 +8,15 @@ import rule.*
 class AdController {
 
 	def statusChangeService
+	def limitCheckerService
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "listMyWishes", params: params)
+		redirect(action: "listMyOffers", params: params)
     }
 	
-	def listMyOffers(){
+	def listMyOffers(){		
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		def adInstances = user.getOffers()
@@ -33,19 +34,29 @@ class AdController {
 
 
     def createWish() {
-		def adInstance = new Ad(params)
-		adInstance.adType = AdType.findByDescription(AdType.wishLabel)
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		if(limitCheckerService.checkWishesLimit(user,flash)){
+			def adInstance = new Ad(params)
+			adInstance.adType = AdType.findByDescription(AdType.wishLabel)
+			render(view: "create",model:[adInstance:adInstance])
+		}else{
+			
+			redirect(action: "listMyWishes")
 		
-		render(view: "create",model:[adInstance:adInstance])
-
+		}
     }
 
 	def createOffer() {
-		def adInstance = new Ad(params)
-		adInstance.adType = AdType.findByDescription(AdType.offerLabel)
-		
-		render(view: "create",model:[adInstance:adInstance])
-		
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		if(limitCheckerService.checkOffersLimit(user,flash)){
+			def adInstance = new Ad(params)
+			adInstance.adType = AdType.findByDescription(AdType.offerLabel)
+			render(view: "create",model:[adInstance:adInstance])
+		}else{
+
+			redirect(action: "listMyOffers")
+		}		
+	
 	}
 	
 	

@@ -17,6 +17,14 @@ class Reputation {
 	}
 	
 	public String toString() {
-		return user+" - "+userRole+": "+value;
+		return user.toString()+" - "+userRole.toString()+": "+value;
+	}
+	
+	def isForOfferer(){
+		return userRole.isOfferer()
+	}
+	
+	def isForClient(){
+		return userRole.isClient()
 	}
 }

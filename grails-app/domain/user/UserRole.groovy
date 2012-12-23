@@ -3,8 +3,8 @@ package user
 class UserRole {
 
 	
-	static offererLabel = "Oferente"
-	static clientLabel = "Cliente"
+	static String offererLabel = "Oferente"
+	static String clientLabel = "Cliente"
 	
 	String description	
 	
