@@ -24,6 +24,14 @@
 				<td valign="top" class="value"><g:formatDate date="${adInstance?.dateCreated}" /></td>
 				
 			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.adStatus.label" default="Status" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "adStatus")}</td>
+				
+			</tr>
+
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.lastUpdated.label" default="Last Updated" /></td>

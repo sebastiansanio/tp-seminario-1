@@ -24,21 +24,21 @@ class BootStrap {
 		user.addToPermissions("ad:*")
 		user.save()
 		
-		def adType = new AdType(code:1,description: 'Oferta')
+		def adType = new AdType(description: AdType.offerLabel)
 		adType.save()
-		adType = new AdType(code:2,description: "Deseo")
+		adType = new AdType(description: AdType.wishLabel)
 		adType.save()
 		
-		def adStatus = new AdStatus(code:1,description: 'ACTIVO')
+		def adStatus = new AdStatus(description: AdStatus.activeLabel)
 		adStatus.save()
-		adStatus = new AdStatus(code:2,description:'FINALIZADO')
+		adStatus = new AdStatus(description: AdStatus.finalizedLabel)
 		adStatus.save()
-		adStatus = new AdStatus(code:3, description:'SUSPENDIDO')
+		adStatus = new AdStatus(description: AdStatus.suspendedLabel)
 		adStatus.save()
 		
-		def userRole = new UserRole(code:1,description: 'Oferente')
+		def userRole = new UserRole(description: UserRole.offererLabel)
 		userRole.save()
-		userRole = new UserRole(code:2,description: 'Cliente')
+		userRole = new UserRole(description: UserRole.clientLabel)
 		userRole.save()
 		
 		

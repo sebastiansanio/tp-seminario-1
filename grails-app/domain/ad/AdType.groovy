@@ -3,9 +3,10 @@ package ad
 class AdType {
 
 	
-	int code
 	String description
 	
+	static String wishLabel = "Deseo"
+	static String offerLabel = "Oferta"
 	
 	static hasMany		= [ads: Ad]	
 	
@@ -13,9 +14,21 @@ class AdType {
     }
     
 	static constraints = {
-    }
+    	description inList:[wishLabel,offerLabel] 
+		
+	}
 	
 	public String toString() {
 		return description
 	}
+	
+	
+	public boolean isWish(){
+		return description.equals(wishLabel)
+	}
+	
+	public boolean isOffer(){
+		return description.equals(offerLabel)
+	}
+
 }

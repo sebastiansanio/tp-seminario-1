@@ -18,4 +18,18 @@ class User {
 	public String toString(){
 		return username
 	}
+	
+	def getOffers(){
+		ads.findAll{
+			it.isOffer()
+		}
+	}
+	
+	
+	def getWishes(){
+		ads.findAll{
+			it.isWish()
+		}
+	}
+	
 }
