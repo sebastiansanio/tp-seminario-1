@@ -1,11 +1,18 @@
-<%@ page import="ad.Ad" %>
+<%@ page import="ad.*" %>
 
 
 
 			<div class="control-group fieldcontain ${hasErrors(bean: adInstance, field: 'adType', 'error')} required">
-				<label for="adType" class="control-label"><g:message code="ad.adType.label" default="Ad Type" /><span class="required-indicator">*</span></label>
+				<label for="adType" class="control-label"><g:message code="ad.adType.label" default="Ad Type" /></label>
 				<div class="controls">
-					<g:select id="adType" name="adType.id" from="${ad.AdType.list()}" optionKey="id" required="" value="${adInstance?.adType?.id}" class="many-to-one"/>
+					
+					
+					<select disabled="disabled">
+					<option>  ${adInstance.adType} </option>
+					</select>
+					<input type="hidden"  id="adType" name="adType.id" value="${adInstance.adType.id }"/>
+					
+					
 					<span class="help-inline">${hasErrors(bean: adInstance, field: 'adType', 'error')}</span>
 				</div>
 			</div>
@@ -14,7 +21,7 @@
 				<label for="adType" class="control-label"><g:message code="ad.family.label" default="Family" /><span class="required-indicator">*</span></label>
 				<div class="controls">
 					<g:select id="family" name="family.id" from="${ad.Family.list()}" optionKey="id" required="" value="${adInstance?.family?.id}" class="many-to-one"/>
-					<span class="help-inline">${hasErrors(bean: adInstance, field: 'adType', 'error')}</span>
+					<span class="help-inline">${hasErrors(bean: adInstance, field: 'family', 'error')}</span>
 				</div>
 			</div>
 

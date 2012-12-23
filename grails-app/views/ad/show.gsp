@@ -1,5 +1,6 @@
 
 <%@ page import="ad.Ad" %>
+<%@ page import="org.apache.shiro.SecurityUtils" %>
 <!doctype html>
 <html>
 
@@ -60,12 +61,17 @@
 				
 			</tr>
 		
+		
+		
+		<g:if test="${!SecurityUtils.subject.getPrincipal().equals(adInstance.user.username) }">
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.user.label" default="User" /></td>
 				
 				<td valign="top" class="value"><g:link controller="user" action="show" id="${adInstance?.user?.id}">${adInstance?.user?.encodeAsHTML()}</g:link></td>
 				
 			</tr>
+		
+		</g:if>
 		
 		</tbody>
 	</table>
