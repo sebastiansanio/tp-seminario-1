@@ -14,9 +14,7 @@ class Application {
 
     
 	static constraints = {
-    	feedback nullable: true
-		dateCreated nullable: true
-		lastUpdated nullable: true
+
 			
 	}
 	

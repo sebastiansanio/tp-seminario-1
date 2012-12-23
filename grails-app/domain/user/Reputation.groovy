@@ -8,11 +8,13 @@ class Reputation {
 	static belongsTo	= [user: User]
 	double value
 	
+	
     static mapping = {
     }
     
 	static constraints = {
-    }
+    	
+	}
 	
 	public String toString() {
 		return user+" - "+userRole+": "+value;

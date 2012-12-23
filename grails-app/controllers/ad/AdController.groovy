@@ -1,13 +1,14 @@
 package ad
-
+import org.apache.shiro.SecurityUtils
+import login.*
 import org.springframework.dao.DataIntegrityViolationException
 
-/**
- * AdController
- * A controller class handles incoming web requests and performs actions such as redirects, rendering views and so on.
- */
+
+
 class AdController {
 
+	def limitCheckerService
+	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -20,11 +21,23 @@ class AdController {
     }
 
     def create() {
-        [adInstance: new Ad(params)]
+		
+		
+        
+		
+		[adInstance: new Ad(params)]
     }
 
     def save() {
+		
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		
+		params.put('user.id', user.id)
+		params.put('adStatus.id', 1)
+		System.out.println(params)
+		
         def adInstance = new Ad(params)
+				
         if (!adInstance.save(flush: true)) {
             render(view: "create", model: [adInstance: adInstance])
             return

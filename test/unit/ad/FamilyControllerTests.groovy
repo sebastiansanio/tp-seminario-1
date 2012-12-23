@@ -1,4 +1,4 @@
-package login
+package ad
 
 
 
@@ -6,12 +6,12 @@ import org.junit.*
 import grails.test.mixin.*
 
 /**
- * UserControllerTests
+ * FamilyControllerTests
  * A unit test class is used to test individual methods or blocks of code without considering the surrounding infrastructure
  */
-@TestFor(UserController)
-@Mock(User)
-class UserControllerTests {
+@TestFor(FamilyController)
+@Mock(Family)
+class FamilyControllerTests {
 
 
     def populateValidParams(params) {
@@ -22,142 +22,142 @@ class UserControllerTests {
 
     void testIndex() {
         controller.index()
-        assert "/user/list" == response.redirectedUrl
+        assert "/family/list" == response.redirectedUrl
     }
 
     void testList() {
 
         def model = controller.list()
 
-        assert model.userInstanceList.size() == 0
-        assert model.userInstanceTotal == 0
+        assert model.familyInstanceList.size() == 0
+        assert model.familyInstanceTotal == 0
     }
 
     void testCreate() {
        def model = controller.create()
 
-       assert model.userInstance != null
+       assert model.familyInstance != null
     }
 
     void testSave() {
         controller.save()
 
-        assert model.userInstance != null
-        assert view == '/user/create'
+        assert model.familyInstance != null
+        assert view == '/family/create'
 
         response.reset()
 
         populateValidParams(params)
         controller.save()
 
-        assert response.redirectedUrl == '/user/show/1'
+        assert response.redirectedUrl == '/family/show/1'
         assert controller.flash.message != null
-        assert User.count() == 1
+        assert Family.count() == 1
     }
 
     void testShow() {
         controller.show()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/user/list'
+        assert response.redirectedUrl == '/family/list'
 
 
         populateValidParams(params)
-        def user = new User(params)
+        def family = new Family(params)
 
-        assert user.save() != null
+        assert family.save() != null
 
-        params.id = user.id
+        params.id = family.id
 
         def model = controller.show()
 
-        assert model.userInstance == user
+        assert model.familyInstance == family
     }
 
     void testEdit() {
         controller.edit()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/user/list'
+        assert response.redirectedUrl == '/family/list'
 
 
         populateValidParams(params)
-        def user = new User(params)
+        def family = new Family(params)
 
-        assert user.save() != null
+        assert family.save() != null
 
-        params.id = user.id
+        params.id = family.id
 
         def model = controller.edit()
 
-        assert model.userInstance == user
+        assert model.familyInstance == family
     }
 
     void testUpdate() {
         controller.update()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/user/list'
+        assert response.redirectedUrl == '/family/list'
 
         response.reset()
 
 
         populateValidParams(params)
-        def user = new User(params)
+        def family = new Family(params)
 
-        assert user.save() != null
+        assert family.save() != null
 
         // test invalid parameters in update
-        params.id = user.id
+        params.id = family.id
         //TODO: add invalid values to params object
 
         controller.update()
 
-        assert view == "/user/edit"
-        assert model.userInstance != null
+        assert view == "/family/edit"
+        assert model.familyInstance != null
 
-        user.clearErrors()
+        family.clearErrors()
 
         populateValidParams(params)
         controller.update()
 
-        assert response.redirectedUrl == "/user/show/$user.id"
+        assert response.redirectedUrl == "/family/show/$family.id"
         assert flash.message != null
 
         //test outdated version number
         response.reset()
-        user.clearErrors()
+        family.clearErrors()
 
         populateValidParams(params)
-        params.id = user.id
+        params.id = family.id
         params.version = -1
         controller.update()
 
-        assert view == "/user/edit"
-        assert model.userInstance != null
-        assert model.userInstance.errors.getFieldError('version')
+        assert view == "/family/edit"
+        assert model.familyInstance != null
+        assert model.familyInstance.errors.getFieldError('version')
         assert flash.message != null
     }
 
     void testDelete() {
         controller.delete()
         assert flash.message != null
-        assert response.redirectedUrl == '/user/list'
+        assert response.redirectedUrl == '/family/list'
 
         response.reset()
 
         populateValidParams(params)
-        def user = new User(params)
+        def family = new Family(params)
 
-        assert user.save() != null
-        assert User.count() == 1
+        assert family.save() != null
+        assert Family.count() == 1
 
-        params.id = user.id
+        params.id = family.id
 
         controller.delete()
 
-        assert User.count() == 0
-        assert User.get(user.id) == null
-        assert response.redirectedUrl == '/user/list'
+        assert Family.count() == 0
+        assert Family.get(family.id) == null
+        assert response.redirectedUrl == '/family/list'
     }
 }
