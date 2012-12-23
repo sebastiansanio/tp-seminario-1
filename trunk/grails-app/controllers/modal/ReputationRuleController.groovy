@@ -1,4 +1,4 @@
-package rule
+package modal
 
 import org.springframework.dao.DataIntegrityViolationException
 
