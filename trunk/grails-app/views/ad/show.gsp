@@ -29,14 +29,16 @@
 				
 				<td valign="top" class="value"><g:formatDate date="${adInstance?.lastUpdated}" /></td>
 				
+		
 			</tr>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="ad.adType.label" default="Ad Type" /></td>
+				<td valign="top" class="name"><g:message code="ad.family.label" default="Family" /></td>
 				
-				<td valign="top" class="value"><g:link controller="adType" action="show" id="${adInstance?.adType?.id}">${adInstance?.adType?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "family")}</td>
 				
 			</tr>
+		
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.applications.label" default="Applications" /></td>

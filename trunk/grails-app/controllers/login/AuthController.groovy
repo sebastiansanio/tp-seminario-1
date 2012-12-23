@@ -13,14 +13,19 @@ class AuthController {
     def index = { redirect(action: "login", params: params) }
 
     def login = {
-        return [ username: params.username, rememberMe: (params.rememberMe != null), targetUri: params.targetUri ]
-    }
+        if(SecurityUtils.subject.isAuthenticated()){
+			def targetUri = params.targetUri ?: "/main"
+			redirect(uri: targetUri)
+        }
+		else{
+			return [ username: params.username, rememberMe: (params.rememberMe != null), targetUri: params.targetUri ]
+    	}
+	}
+			
 
     def signIn = {
-        def authToken = new UsernamePasswordToken(params.username, params.password as String)
-
-        // Support for "remember me"
-        if (params.rememberMe) {
+		def authToken = new UsernamePasswordToken(params.username, params.password as String)
+		if (params.rememberMe) {
             authToken.rememberMe = true
         }
         

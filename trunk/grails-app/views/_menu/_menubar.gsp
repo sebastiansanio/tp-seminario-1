@@ -1,9 +1,14 @@
+
+<%@ page import="org.apache.shiro.SecurityUtils" %>
+
+
 <g:if test="${session.layout == null || session.layout == 'grid'}">
 	<g:set var="menutype" value="nav nav-tabs" />
 </g:if>
 <g:elseif test="${session.layout == 'fluid'}">
 	<g:set var="menutype" value="nav nav-tabs" />
 </g:elseif>
+
 
 <!-- position of menu: LTR (left-to-right, European) or RTL (right-to-left, Oriental) -->
 <g:if test="${session.menuposition == 'right' && session.layout == 'grid'}">
@@ -22,13 +27,18 @@
 
 <div class="${menuposition}">
 	<ul class="${menutype}" data-role="listview" data-split-icon="gear" data-filter="true">
-	
-		<g:each status="i" var="c" in="${grailsApplication.controllerClasses.sort { it.logicalPropertyName } }">
-			<li class="controller${params.controller == c.logicalPropertyName ? " active" : ""}">
-				<g:link controller="${c.logicalPropertyName}" action="index">
-					<g:message code="${c.logicalPropertyName}.label" default="${c.logicalPropertyName.capitalize()}"/>
-				</g:link>
-			</li>
+		<g:each status="i" var="c" in="${grailsApplication.controllerClasses.findAll{it.name in ['Main','Ad','Family']}}">
+			
+			
+			<g:if test="${SecurityUtils.subject.isPermitted(c.logicalPropertyName)}">
+				
+				<li class="controller${params.controller == c.logicalPropertyName ? " active" : ""}">
+					<g:link controller="${c.logicalPropertyName}" action="index">
+						<g:message code="${c.logicalPropertyName}.label" default="${c.logicalPropertyName.capitalize()}"/>
+					</g:link>
+				
+				</li>
+			</g:if>
 		</g:each>
 		
 	</ul>

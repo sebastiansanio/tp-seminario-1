@@ -11,8 +11,7 @@ class Feedback {
 	
      
 	static constraints = {
-		dateCreated nullable: true
-		lastUpdated nullable: true
+
     }
 	
 	public String toString() {

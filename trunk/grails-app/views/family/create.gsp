@@ -1,21 +1,21 @@
-<%@ page import="login.User" %>
+<%@ page import="ad.Family" %>
 <!doctype html>
 <html>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+	<g:set var="entityName" value="${message(code: 'family.label', default: 'Family')}" />
 	<title><g:message code="default.create.label" args="[entityName]" /></title>
 </head>
 
 <body>
 
-<section id="create-user" class="first">
+<section id="create-family" class="first">
 
-	<g:hasErrors bean="${userInstance}">
+	<g:hasErrors bean="${familyInstance}">
 	<div class="alert alert-error">
-		<g:renderErrors bean="${userInstance}" as="list" />
+		<g:renderErrors bean="${familyInstance}" as="list" />
 	</div>
 	</g:hasErrors>
 	

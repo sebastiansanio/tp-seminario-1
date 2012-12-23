@@ -1,27 +1,27 @@
-<%@ page import="login.User" %>
+<%@ page import="ad.Family" %>
 <!doctype html>
 <html>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+	<g:set var="entityName" value="${message(code: 'family.label', default: 'Family')}" />
 	<title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
 
 <body>
 
-<section id="edit-user" class="first">
+<section id="edit-family" class="first">
 
-	<g:hasErrors bean="${userInstance}">
+	<g:hasErrors bean="${familyInstance}">
 	<div class="alert alert-error">
-		<g:renderErrors bean="${userInstance}" as="list" />
+		<g:renderErrors bean="${familyInstance}" as="list" />
 	</div>
 	</g:hasErrors>
 
 	<g:form method="post" class="form-horizontal" >
-		<g:hiddenField name="id" value="${userInstance?.id}" />
-		<g:hiddenField name="version" value="${userInstance?.version}" />
+		<g:hiddenField name="id" value="${familyInstance?.id}" />
+		<g:hiddenField name="version" value="${familyInstance?.version}" />
 		<fieldset class="form">
 			<g:render template="form"/>
 		</fieldset>
