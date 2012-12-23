@@ -12,28 +12,52 @@ class AdController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        redirect(action: "listMyWishes", params: params)
     }
 
-    def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [adInstanceList: Ad.list(params), adInstanceTotal: Ad.count()]
+	private void getList(String adType){
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def adInstances = user.ads.findAll{
+			it.adType.description==adType
+		}
+		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
+		render(view: "list",model:model)
+	}
+	
+	def listMyOffers(){
+		getList("Oferta")
+	}
+	
+	def listMyWishes(){
+		getList("Deseo")
+	}
+
+
+    def createWish() {
+		def adInstance = new Ad(params)
+		adInstance.adType = AdType.findByDescription("Deseo")
+		
+		render(view: "create",model:[adInstance:adInstance])
+
     }
 
-    def create() {
+	def createOffer() {
+		def adInstance = new Ad(params)
+		adInstance.adType = AdType.findByDescription("Oferta")
 		
+		render(view: "create",model:[adInstance:adInstance])
 		
-        
-		
-		[adInstance: new Ad(params)]
-    }
-
+	}
+	
+	
     def save() {
 		
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		
 		params.put('user.id', user.id)
-		params.put('adStatus.id', 1)
+		params.put('adStatus.id', AdStatus.findByDescription("ACTIVO").id)
 		System.out.println(params)
 		
         def adInstance = new Ad(params)
@@ -103,14 +127,14 @@ class AdController {
         def adInstance = Ad.get(params.id)
         if (!adInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'ad.label', default: 'Ad'), params.id])
-            redirect(action: "list")
+            redirect(action: "index")
             return
         }
 
         try {
             adInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'ad.label', default: 'Ad'), params.id])
-            redirect(action: "list")
+            redirect(action: "index")
         }
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'ad.label', default: 'Ad'), params.id])

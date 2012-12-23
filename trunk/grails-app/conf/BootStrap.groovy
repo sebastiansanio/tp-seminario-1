@@ -42,6 +42,11 @@ class BootStrap {
 		userRole.save()
 		
 		
+		def family = new Family(description: 'Contable')
+		family.save()
+		family = new Family(description: 'Agrimensura')
+		family.save()
+		
     }
     def destroy = {
     }

@@ -6,6 +6,7 @@ class AdType {
 	int code
 	String description
 	
+	
 	static hasMany		= [ads: Ad]	
 	
     static mapping = {
