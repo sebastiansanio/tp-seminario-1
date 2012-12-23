@@ -61,6 +61,20 @@
 				</td>
 				
 			</tr>
+	
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.desiredPlaces.label" default="Desired places" /></td>
+				
+				<td valign="top" style="text-align: left;" class="value">
+					<ul>
+					<g:each in="${adInstance.desiredPlaces}" var="a">
+						<li>${a?.encodeAsHTML()}</li>
+					</g:each>
+					</ul>
+				</td>
+				
+			</tr>
+	
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.description.label" default="Description" /></td>
@@ -77,6 +91,12 @@
 				
 			</tr>
 		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.applicationsLimit.label" default="Applications Limit" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "applicationsLimit")}</td>
+				
+			</tr>
 		
 		
 		<g:if test="${!SecurityUtils.subject.getPrincipal().equals(adInstance.user.username) }">

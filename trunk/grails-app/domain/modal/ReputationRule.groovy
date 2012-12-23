@@ -6,6 +6,8 @@ class ReputationRule {
 	long topReputation
 	int maxActiveAds
 	int maxAdsPerDay
+	int maxActiveApplications
+	int maxApplicationsPerDay
 	BigDecimal maxPrice
 	
     static mapping = {
