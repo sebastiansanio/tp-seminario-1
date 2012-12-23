@@ -33,5 +33,20 @@ class Ad {
 	def isWish(){
 		return adType.isWish()
 	}
-		
+	def isActive(){
+		return adStatus.isActive()
+	}
+	def isFinalized(){
+		return adStatus.isFinalized()
+	}
+	def isSuspended(){
+		return adStatus.isSuspended()
+	}
+	
+	def createdToday(){
+		Date date = new Date()
+		long daysDifference = date-dateCreated
+		return (daysDifference == 0)
+	}
+	
 }
