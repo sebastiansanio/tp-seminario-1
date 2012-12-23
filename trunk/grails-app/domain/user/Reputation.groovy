@@ -6,7 +6,7 @@ class Reputation {
 	
 	UserRole userRole
 	static belongsTo	= [user: User]
-	double value
+	long value
 	
 	
     static mapping = {

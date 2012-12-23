@@ -9,6 +9,7 @@ class Ad {
 	AdType adType
 	AdStatus adStatus
 	Family family
+	long minimumReputation
 	
 	static belongsTo	= [user: User]	
 	static hasMany		= [applications: Application]	
@@ -16,6 +17,7 @@ class Ad {
    
 	static constraints = {
 		description size:10..400
+		minimumReputation nullable: false
 		
     }
 	
