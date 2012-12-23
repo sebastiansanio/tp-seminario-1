@@ -2,7 +2,10 @@ package user
 
 class UserRole {
 
-	int code
+	
+	static offererLabel = "Oferente"
+	static clientLabel = "Cliente"
+	
 	String description	
 	
     static mapping = {
@@ -10,10 +13,18 @@ class UserRole {
 	}
     
 	static constraints = {
-			
+		description inList:[offererLabel,clientLabel]
 	}
 	
 	public String toString() {
 		return description
+	}
+	
+	def isOfferer(){
+		return description.equals(offererLabel)
+	}
+	
+	def isClient(){
+		return description.equals(clientLabel)
 	}
 }

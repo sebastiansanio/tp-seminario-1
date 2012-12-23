@@ -2,42 +2,39 @@ package ad
 import org.apache.shiro.SecurityUtils
 import login.*
 import org.springframework.dao.DataIntegrityViolationException
-
+import rule.*
 
 
 class AdController {
 
-	def limitCheckerService
+	def statusChangeService
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "listMyWishes", params: params)
     }
-
-	private void getList(String adType){
+	
+	def listMyOffers(){
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
-		def adInstances = user.ads.findAll{
-			it.adType.description==adType
-		}
+		def adInstances = user.getOffers()
 		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
 		render(view: "list",model:model)
 	}
 	
-	def listMyOffers(){
-		getList("Oferta")
-	}
-	
 	def listMyWishes(){
-		getList("Deseo")
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def adInstances = user.getWishes()
+		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
+		render(view: "list",model:model)
 	}
 
 
     def createWish() {
 		def adInstance = new Ad(params)
-		adInstance.adType = AdType.findByDescription("Deseo")
+		adInstance.adType = AdType.findByDescription(AdType.wishLabel)
 		
 		render(view: "create",model:[adInstance:adInstance])
 
@@ -45,7 +42,7 @@ class AdController {
 
 	def createOffer() {
 		def adInstance = new Ad(params)
-		adInstance.adType = AdType.findByDescription("Oferta")
+		adInstance.adType = AdType.findByDescription(AdType.offerLabel)
 		
 		render(view: "create",model:[adInstance:adInstance])
 		
@@ -57,8 +54,7 @@ class AdController {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		
 		params.put('user.id', user.id)
-		params.put('adStatus.id', AdStatus.findByDescription("ACTIVO").id)
-		System.out.println(params)
+		params.put('adStatus.id', AdStatus.findByDescription(AdStatus.activeLabel).id)
 		
         def adInstance = new Ad(params)
 				
@@ -130,15 +126,8 @@ class AdController {
             redirect(action: "index")
             return
         }
+		statusChangeService.suspendAd(adInstance)
+		redirect(action: "index")
 
-        try {
-            adInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'ad.label', default: 'Ad'), params.id])
-            redirect(action: "index")
-        }
-        catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'ad.label', default: 'Ad'), params.id])
-            redirect(action: "show", id: params.id)
-        }
     }
 }
