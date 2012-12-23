@@ -3,6 +3,7 @@ import org.apache.shiro.SecurityUtils
 import login.*
 import org.springframework.dao.DataIntegrityViolationException
 import rule.*
+import modal.*
 
 
 class AdController {
@@ -68,7 +69,16 @@ class AdController {
 		params.put('adStatus.id', AdStatus.findByDescription(AdStatus.activeLabel).id)
 		
         def adInstance = new Ad(params)
+	
+		def desiredPlaces = params.get("desiredPlaces.id")	
+		if(adInstance.desiredPlaces!=null)
+			adInstance.desiredPlaces.clear()
+		desiredPlaces.each {
+			adInstance.addToDesiredPlaces(Place.get(it))
+			
+		}
 				
+					
         if (!adInstance.save(flush: true)) {
             render(view: "create", model: [adInstance: adInstance])
             return
@@ -102,6 +112,14 @@ class AdController {
 
     def update() {
         def adInstance = Ad.get(params.id)
+		def desiredPlaces = params.get("desiredPlaces.id")
+		if(adInstance.desiredPlaces!=null)
+			adInstance.desiredPlaces.clear()
+		desiredPlaces.each {
+			adInstance.addToDesiredPlaces(Place.get(it))
+			
+		}
+
         if (!adInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'ad.label', default: 'Ad'), params.id])
             redirect(action: "list")

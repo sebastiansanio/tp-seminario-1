@@ -11,6 +11,7 @@ class Ad {
 	AdStatus adStatus
 	Family family
 	long minimumReputation
+	int applicationsLimit
 	
 	
 	static belongsTo	= [user: User]	
@@ -18,9 +19,10 @@ class Ad {
 	
    
 	static constraints = {
-		description size:10..400
+		description blank:false,size:10..400
 		minimumReputation nullable: false
-    }
+   
+	}
 	
 	public String toString() {
 		return description

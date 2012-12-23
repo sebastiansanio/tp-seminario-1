@@ -1,14 +1,16 @@
 package login
 import user.*
 import ad.*
+import modal.*
 
 class User {
 	Date	dateCreated
 	Date    lastUpdated
     String username
     String passwordHash
-    
-    static hasMany = [ roles: Role, permissions: String, reputations: Reputation, ads: Ad]
+	Place place
+	
+    static hasMany = [ roles: Role, permissions: String, reputations: Reputation, ads: Ad,applications:Application]
 
     static constraints = {
         username(blank: false, unique: true)
@@ -58,7 +60,7 @@ class User {
 		def activeWishes = ads.findAll{
 			it.isWish() && it.isActive()
 		}
-		return activeWishges.size()
+		return activeWishes.size()
 	}
 
 	def getTodayOffersQuantity(){
@@ -72,6 +74,6 @@ class User {
 		def activeWishes = ads.findAll{
 			it.isWish() && it.createdToday()
 		}
-		return activeWishges.size()
+		return activeWishes.size()
 	}
 }
