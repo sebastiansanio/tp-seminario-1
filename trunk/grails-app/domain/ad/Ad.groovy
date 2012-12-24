@@ -11,7 +11,6 @@ class Ad {
 	AdType adType
 	AdStatus adStatus
 	Family family
-	long minimumReputation
 	int applicationsLimit
 	BigDecimal budget
 	
@@ -23,7 +22,6 @@ class Ad {
 	static constraints = {
 		title blank:false
 		description blank:false,size:10..400
-		minimumReputation nullable: false
 		budget nullable:true,scale:2
 	}
 	
@@ -46,6 +44,12 @@ class Ad {
 	}
 	public boolean isSuspended(){
 		return adStatus.isSuspended()
+	}
+	
+	public getPendingApplications(){
+		return applications.findAll{
+			it.isPending()
+		}
 	}
 	
 	public boolean createdToday(){

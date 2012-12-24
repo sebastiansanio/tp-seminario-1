@@ -61,9 +61,7 @@ class AdController {
 			adInstance.adType = AdType.findByDescription(AdType.wishLabel)
 			render(view: "create",model:[adInstance:adInstance])
 		}else{
-			
 			redirect(action: "listMyWishes")
-		
 		}
     }
 
@@ -74,7 +72,6 @@ class AdController {
 			adInstance.adType = AdType.findByDescription(AdType.offerLabel)
 			render(view: "create",model:[adInstance:adInstance])
 		}else{
-
 			redirect(action: "listMyOffers")
 		}		
 	
@@ -83,19 +80,27 @@ class AdController {
 	
     def save() {
 		
-		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
-		
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())	
 		params.put('user.id', user.id)
 		params.put('adStatus.id', AdStatus.findByDescription(AdStatus.activeLabel).id)
-				
         def adInstance = new Ad(params)
-	
 		def desiredPlaces = params.get("desiredPlaces.id")	
 		desiredPlaces.each {
 			adInstance.addToDesiredPlaces(Place.get(it))
 		}
-				
-					
+	
+		boolean canContinue
+		
+		if(adInstance.isOffer())
+			canContinue=limitCheckerService.checkOffersLimit(user,flash)
+		else
+			canContinue=limitCheckerService.checkWishesLimit(user,flash)
+
+		if(!canContinue){
+            render(view: "create", model: [adInstance: adInstance])
+            return
+        }
+
         if (!adInstance.save(flush: true)) {
             render(view: "create", model: [adInstance: adInstance])
             return

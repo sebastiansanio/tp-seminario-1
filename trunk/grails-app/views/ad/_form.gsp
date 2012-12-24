@@ -50,15 +50,6 @@
 			</div>
 
 
-			<div class="control-group fieldcontain ${hasErrors(bean: adInstance, field: 'minimumReputation', 'error')} ">
-				<label for="minimumReputation" class="control-label"><g:message code="ad.minimumReputation.label" default="Minimun reputation" /></label>
-				<div class="controls">
-					<g:field type="number" name="minimumReputation" value="${adInstance?.minimumReputation}"/>
-					<span class="help-inline">${hasErrors(bean: adInstance, field: 'minimumReputation', 'error')}</span>
-				</div>
-			</div>
-
-
 			<div class="control-group fieldcontain ${hasErrors(bean: adInstance, field: 'applicationsLimit', 'error')} ">
 				<label for="applicationsLimit" class="control-label"><g:message code="ad.applicationsLimit.label" default="Applications limit" /></label>
 				<div class="controls">

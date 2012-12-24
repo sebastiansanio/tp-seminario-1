@@ -40,5 +40,11 @@ class Application {
 	public boolean isAccepted(){
 		return applicationStatus.isAccepted()
 	}
+	
+	public boolean createdToday(){
+		Date date = new Date()
+		long daysDifference = date-dateCreated
+		return (daysDifference == 0)
+	}
 
 }

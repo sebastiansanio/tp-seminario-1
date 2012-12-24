@@ -1,5 +1,6 @@
 
 <%@ page import="ad.Application" %>
+<%@ page import="org.apache.shiro.SecurityUtils" %>
 <!doctype html>
 <html>
 
@@ -65,13 +66,15 @@
 				<td valign="top" class="value"><g:formatDate date="${applicationInstance?.lastUpdated}" /></td>
 				
 			</tr>
-		
+	<g:if test="${!SecurityUtils.subject.getPrincipal().equals(applicationInstance.user.username) }">
+			
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="application.user.label" default="User" /></td>
 				
 				<td valign="top" class="value"><g:link controller="user" action="show" id="${applicationInstance?.user?.id}">${applicationInstance?.user?.encodeAsHTML()}</g:link></td>
 				
 			</tr>
+	</g:if>
 		
 		</tbody>
 	</table>
