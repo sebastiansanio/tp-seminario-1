@@ -1,5 +1,7 @@
 
 <%@ page import="ad.Application" %>
+
+
 <!doctype html>
 <html>
 <head>
@@ -17,16 +19,24 @@
 		<thead>
 			<tr>
 			
-				<th><g:message code="application.ad.label" default="Ad" /></th>
+				<g:if test="${ params.action == "listReceivedApplications"}">
+					<g:sortableColumn property="user" title="${message(code: 'application.user.label', default: 'User')}" />	
+				</g:if>	
 			
+				<th><g:message code="application.label" default="Application" /></th>
 				<th><g:message code="application.applicationStatus.label" default="Application Status" /></th>
+			
+			
+				<th><g:message code="application.ad.label" default="Ad" /></th>
+				<th><g:message code="ad.adType.label" default="Ad type" /></th>
+			
+			
 			
 				<g:sortableColumn property="budget" title="${message(code: 'application.budget.label', default: 'Budget')}" />
 			
 				<g:sortableColumn property="dateCreated" title="${message(code: 'application.dateCreated.label', default: 'Date Created')}" />
 			
 			
-				<th><g:message code="application.feedback.label" default="Feedback" /></th>
 			
 			</tr>
 		</thead>
@@ -34,17 +44,27 @@
 		<g:each in="${applicationInstanceList}" status="i" var="applicationInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 			
-				<td><g:link action="show" id="${applicationInstance.id}">${fieldValue(bean: applicationInstance, field: "ad")}</g:link></td>
+			
+				<g:if test="${ params.action == "listReceivedApplications"}">
+			
+					<td><g:link controller="user" action="show" id="${applicationInstance.user.id}">${applicationInstance.user }</g:link></td>
+			
+				</g:if>	
+			
+			
+				<td><g:link action="show" id="${applicationInstance.id}">${message(code: 'showapplication.label')}</g:link></td>
 			
 				<td>${fieldValue(bean: applicationInstance, field: "applicationStatus")}</td>
+			
+			
+				<td><g:link controller="ad" action="show" id="${applicationInstance.ad.id}">${fieldValue(bean: applicationInstance, field: "ad")}</g:link></td>
+				<td>${fieldValue(bean: applicationInstance, field: "ad.adType")}</td>
+			
 			
 				<td>${fieldValue(bean: applicationInstance, field: "budget")}</td>
 			
 				<td><g:formatDate date="${applicationInstance.dateCreated}" /></td>
-			
-			
-				<td>${fieldValue(bean: applicationInstance, field: "feedback")}</td>
-			
+				
 			</tr>
 		</g:each>
 		</tbody>

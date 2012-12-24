@@ -48,6 +48,22 @@ class User {
 		}
 		return reputation.value
 	}
+	
+	
+	def getActiveApplicationsQuantity(){
+		def activeApplications = applications.findAll{
+			it.isPending()
+		}
+		return activeApplications.size()
+	}
+
+	def getTodayApplicationsQuantity(){
+		def todayApplications = applications.findAll{
+			it.createdToday()
+		}
+		return todayApplications.size()
+	}
+		
 		
 	def getActiveOffersQuantity(){
 		def activeOffers = ads.findAll{
@@ -64,16 +80,16 @@ class User {
 	}
 
 	def getTodayOffersQuantity(){
-		def activeOffers = ads.findAll{
+		def todayOffers = ads.findAll{
 			it.isOffer() && it.createdToday()
 		}
-		return activeOffers.size()
+		return todayOffers.size()
 	}
 	
 	def getTodayWishesQuantity(){
-		def activeWishes = ads.findAll{
+		def todayWishes = ads.findAll{
 			it.isWish() && it.createdToday()
 		}
-		return activeWishes.size()
+		return todayWishes.size()
 	}
 }

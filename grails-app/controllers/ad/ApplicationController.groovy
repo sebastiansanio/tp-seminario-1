@@ -7,6 +7,9 @@ import org.apache.shiro.SecurityUtils
 
 class ApplicationController {
 
+	def statusChangeService
+	def limitCheckerService
+	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -24,7 +27,7 @@ class ApplicationController {
 	def listReceivedApplications(){
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
-		def adApplications = Application.findAll().findAll {			
+		def adApplications = ApplicationStatus.findByDescription(ApplicationStatus.pendingLabel).applications.findAll {			
 			it.ad.user==currentUser
 		}
 		def model = [applicationInstanceList: adApplications, applicationInstanceTotal: adApplications.size()]
@@ -32,23 +35,38 @@ class ApplicationController {
 	}
 	
     def create() {
-		params.put('ad.id', params.adid)
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def ad = Ad.get(params.adid)
 		
-        [applicationInstance: new Application(params)]
+		if(limitCheckerService.checkApplicationLimit(user,ad,flash)){
+			params.put('ad.id', params.adid)
+			def applicationInstance= new Application(params)
+			render(view: "create",model:[applicationInstance:applicationInstance])
+		}else{
+			redirect(controller:"ad",action: "show",id:params.adid)
+		}
     }
 
     def save() {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
-		
 		params.put('user.id', user.id)
 		params.put('applicationStatus.id', ApplicationStatus.findByDescription(ApplicationStatus.pendingLabel).id)
 				
         def applicationInstance = new Application(params)
+		
+		if(!limitCheckerService.checkApplicationLimit(user,applicationInstance.ad,flash)){
+			render(view: "create", model: [applicationInstance: applicationInstance])
+			return
+		}
+		
         if (!applicationInstance.save(flush: true)) {
             render(view: "create", model: [applicationInstance: applicationInstance])
             return
         }
 
+		user.addToPermissions("application:edit,update,delete:"+applicationInstance.id)
+		
+		
 		flash.message = message(code: 'default.created.message', args: [message(code: 'application.label', default: 'Application'), applicationInstance.id])
         redirect(action: "show", id: applicationInstance.id)
     }
@@ -107,20 +125,16 @@ class ApplicationController {
 
     def delete() {
         def applicationInstance = Application.get(params.id)
-        if (!applicationInstance) {
+		
+		
+		if (!applicationInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'application.label', default: 'Application'), params.id])
             redirect(action: "list")
             return
         }
 
-        try {
-            applicationInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'application.label', default: 'Application'), params.id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'application.label', default: 'Application'), params.id])
-            redirect(action: "show", id: params.id)
-        }
+		statusChangeService.suspendApplication(applicationInstance)
+		redirect(action: "index")
+
     }
 }
