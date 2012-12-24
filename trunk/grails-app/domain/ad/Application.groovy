@@ -25,19 +25,19 @@ class Application {
 		return user.toString()+": "+description
 	}
 	
-	def isPending(){
+	public boolean isPending(){
 		return applicationStatus.isPending()
 	}
-	def isFinalized(){
+	public boolean isFinalized(){
 		return applicationStatus.isFinalized()
 	}
-	def isSuspended(){
+	public boolean isSuspended(){
 		return applicationStatus.isSuspended()
 	}
-	def isRejected(){
+	public boolean isRejected(){
 		return applicationStatus.isRejected()
 	}
-	def isAccepted(){
+	public boolean isAccepted(){
 		return applicationStatus.isAccepted()
 	}
 
