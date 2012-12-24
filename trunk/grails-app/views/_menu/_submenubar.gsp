@@ -62,8 +62,8 @@
 			<g:link action="listMyApplications"><i class="icon-th-list"></i> <g:message code="default.listMyApplications.label" args="[entityName]"/></g:link>
 		</li>
 		
-		<li class="${ params.action == "listApplicationsReceived" ? 'active' : '' }">
-			<g:link action="listApplicationsReceived"><i class="icon-th-list"></i> <g:message code="default.listApplicationsReceived.label" args="[entityName]"/></g:link>
+		<li class="${ params.action == "listReceivedApplications" ? 'active' : '' }">
+			<g:link action="listReceivedApplications"><i class="icon-th-list"></i> <g:message code="default.listReceivedApplications.label" args="[entityName]"/></g:link>
 		</li>	
 		
 		<li class="${ params.action == "create" ? 'active' : '' }">

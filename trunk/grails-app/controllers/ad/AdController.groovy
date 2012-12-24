@@ -37,13 +37,8 @@ class AdController {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		def adInstances = AdType.findByDescription(AdType.wishLabel).ads.findAll{
-			it.isActive()
+			it.isActive() && it.user!=currentUser
 		}
-		adInstances.findAll{
-			it.user!=currentUser
-		}
-		
-
 		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
 		render(view: "list",model:model)
 	}
@@ -52,13 +47,8 @@ class AdController {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		def adInstances = AdType.findByDescription(AdType.offerLabel).ads.findAll{
-			it.isActive()
-		}
-		adInstances.findAll{
-			it.user!=currentUser
-		}
-		
-
+			it.isActive() && it.user!=currentUser
+		}	
 		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
 		render(view: "list",model:model)
 	}
