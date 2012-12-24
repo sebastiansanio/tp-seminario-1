@@ -131,8 +131,21 @@
 				<td valign="top" class="value"><g:link controller="user" action="show" id="${adInstance?.user?.id}">${adInstance?.user?.encodeAsHTML()}</g:link></td>
 				
 			</tr>
+			
+			
+			<tr class="prop">
+			
+				<td colspan="2" valign="top" class="name"><g:link controller="application" action="create" params="[adid:adInstance?.id]"><h3>
+				<g:message code="ad.apply.label" default="Apply" /></h3></g:link></td>
+				
+				
+			</tr>
 		
 		</g:if>
+		
+
+		
+		
 		
 		</tbody>
 	</table>

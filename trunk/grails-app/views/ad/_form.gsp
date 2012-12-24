@@ -10,7 +10,6 @@
 					<option>  ${adInstance.adType} </option>
 					</select>
 					<input type="hidden"  id="adType" name="adType.id" value="${adInstance.adType.id }"/>
-					<span class="help-inline">${hasErrors(bean: adInstance, field: 'adType', 'error')}</span>
 				</div>
 			</div>
 
