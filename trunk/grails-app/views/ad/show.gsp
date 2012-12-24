@@ -44,7 +44,13 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.description.label" default="Description" /></td>
 				
-				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "description")}</td>
+				<td valign="top" class="value">
+				
+				
+				<g:textArea disabled="true" style="width: 80%;" rows="7" name="description" value="${adInstance?.description}"/>
+				
+				
+				</td>
 				
 			</tr>
 		
@@ -57,14 +63,14 @@
 				<td valign="top" class="value"><g:formatDate date="${adInstance?.dateCreated}" /></td>
 				
 			</tr>
-
+		<g:if test="${SecurityUtils.subject.getPrincipal().equals(adInstance.user.username) }">
+	
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.adStatus.label" default="Status" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "adStatus")}</td>
 				
 			</tr>
-
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.lastUpdated.label" default="Last Updated" /></td>
@@ -85,7 +91,6 @@
 					</g:each>
 					</ul>
 				</td>
-				
 			</tr>
 	
 			<tr class="prop">
@@ -101,6 +106,8 @@
 				
 			</tr>
 	
+	
+		
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.minimumReputation.label" default="Minimum reputation" /></td>
@@ -108,6 +115,7 @@
 				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "minimumReputation")}</td>
 				
 			</tr>
+	
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.applicationsLimit.label" default="Applications Limit" /></td>
@@ -115,7 +123,8 @@
 				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "applicationsLimit")}</td>
 				
 			</tr>
-		
+		</g:if>
+			
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.budget.label" default="Budget" /></td>
 				

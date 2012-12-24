@@ -25,7 +25,6 @@
 			
 				<g:sortableColumn property="dateCreated" title="${message(code: 'application.dateCreated.label', default: 'Date Created')}" />
 			
-				<g:sortableColumn property="description" title="${message(code: 'application.description.label', default: 'Description')}" />
 			
 				<th><g:message code="application.feedback.label" default="Feedback" /></th>
 			
@@ -43,7 +42,6 @@
 			
 				<td><g:formatDate date="${applicationInstance.dateCreated}" /></td>
 			
-				<td>${fieldValue(bean: applicationInstance, field: "description")}</td>
 			
 				<td>${fieldValue(bean: applicationInstance, field: "feedback")}</td>
 			
