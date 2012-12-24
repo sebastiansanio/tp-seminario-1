@@ -16,35 +16,34 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-			
-			
+				<g:if test="${ params.action == "listOthersWishes" || params.action == "listOthersOffers"}">
+					<g:sortableColumn property="user" title="${message(code: 'ad.user.label', default: 'User')}" />	
+				</g:if>	
 				<g:sortableColumn property="family" title="${message(code: 'ad.family.label', default: 'Family')}" />
-			
+				<g:sortableColumn property="title" title="${message(code: 'ad.title.label', default: 'Title')}" />
 				<g:sortableColumn property="dateCreated" title="${message(code: 'ad.dateCreated.label', default: 'Date Created')}" />
-						
-			
-				<g:sortableColumn property="description" title="${message(code: 'ad.description.label', default: 'Description')}" />
-			
 				<g:sortableColumn property="adStatus" title="${message(code: 'ad.adStatus.label', default: 'Ad Status')}" />
-			
 				<g:sortableColumn property="minimumReputation" title="${message(code: 'ad.minimumReputation.label', default: 'Minimum reputation')}" />
+				<g:sortableColumn property="applicationsLimit" title="${message(code: 'ad.applicationsLimit.label', default: 'Applications limit')}" />
+				<g:sortableColumn property="budget" title="${message(code: 'ad.budget.label', default: 'Budget')}" />
+
 			
 			</tr>
 		</thead>
 		<tbody>
 		<g:each in="${adInstanceList}" status="i" var="adInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-			
+				<g:if test="${ params.action == "listOthersWishes" || params.action == "listOthersOffers"}">
+					<td><g:link controller="user" action="show" id="${adInstance.user.id}">${fieldValue(bean: adInstance, field: "user")}</g:link></td>
+				</g:if>
 				<td>${fieldValue(bean: adInstance, field: "family")}</td>
-			
-				<td>${fieldValue(bean: adInstance, field: "dateCreated")}</td>
-			
-			
-				<td><g:link action="show" id="${adInstance.id}">${fieldValue(bean: adInstance, field: "description")}</g:link></td>
-			
+				<td><g:link action="show" id="${adInstance.id}">${fieldValue(bean: adInstance, field: "title")}</g:link></td>
+				<td>${fieldValue(bean: adInstance, field: "dateCreated")}</td>		
 				<td>${fieldValue(bean: adInstance, field: "adStatus")}</td>
-			
 				<td>${fieldValue(bean: adInstance, field: "minimumReputation")}</td>
+				<td>${fieldValue(bean: adInstance, field: "applicationsLimit")}</td>
+				<td>${fieldValue(bean: adInstance, field: "budget")}</td>
+
 			
 			</tr>
 		</g:each>

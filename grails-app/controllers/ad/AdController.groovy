@@ -33,6 +33,36 @@ class AdController {
 		render(view: "list",model:model)
 	}
 
+	def listOthersWishes(){
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def adInstances = AdType.findByDescription(AdType.wishLabel).ads.findAll{
+			it.isActive()
+		}
+		adInstances.findAll{
+			it.user!=currentUser
+		}
+		
+
+		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
+		render(view: "list",model:model)
+	}
+
+	def listOthersOffers(){
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def adInstances = AdType.findByDescription(AdType.offerLabel).ads.findAll{
+			it.isActive()
+		}
+		adInstances.findAll{
+			it.user!=currentUser
+		}
+		
+
+		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
+		render(view: "list",model:model)
+	}
+
 
     def createWish() {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
@@ -59,7 +89,7 @@ class AdController {
 		}		
 	
 	}
-	
+		
 	
     def save() {
 		
@@ -67,15 +97,12 @@ class AdController {
 		
 		params.put('user.id', user.id)
 		params.put('adStatus.id', AdStatus.findByDescription(AdStatus.activeLabel).id)
-		
+				
         def adInstance = new Ad(params)
 	
 		def desiredPlaces = params.get("desiredPlaces.id")	
-		if(adInstance.desiredPlaces!=null)
-			adInstance.desiredPlaces.clear()
 		desiredPlaces.each {
 			adInstance.addToDesiredPlaces(Place.get(it))
-			
 		}
 				
 					
@@ -84,6 +111,8 @@ class AdController {
             return
         }
 
+		user.addToPermissions("ad:edit,update,delete:"+adInstance.id)
+		
 		flash.message = message(code: 'default.created.message', args: [message(code: 'ad.label', default: 'Ad'), adInstance.id])
         redirect(action: "show", id: adInstance.id)
     }
@@ -113,8 +142,7 @@ class AdController {
     def update() {
         def adInstance = Ad.get(params.id)
 		def desiredPlaces = params.get("desiredPlaces.id")
-		if(adInstance.desiredPlaces!=null)
-			adInstance.desiredPlaces.clear()
+		adInstance.desiredPlaces.clear()
 		desiredPlaces.each {
 			adInstance.addToDesiredPlaces(Place.get(it))
 			
