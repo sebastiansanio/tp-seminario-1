@@ -26,11 +26,11 @@ class ApplicationController {
 		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
 
 		def adApplications = Application.findAll {			
-			it.ad.user==currentUser
+			//ad.user==currentUser
+			//isActive() 
+			//isPending()
 		}
-		adApplications = adApplications.findAll{
-			it.isPending()
-		}
+
 		def model = [applicationInstanceList: adApplications, applicationInstanceTotal: adApplications.size()]
 		render(view: "list",model:model)
 	}
