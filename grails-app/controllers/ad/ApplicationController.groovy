@@ -24,13 +24,9 @@ class ApplicationController {
 	def listReceivedApplications(){
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
-
-		def adApplications = Application.findAll {			
-			//ad.user==currentUser
-			//isActive() 
-			//isPending()
+		def adApplications = Application.findAll().findAll {			
+			it.ad.user==currentUser
 		}
-
 		def model = [applicationInstanceList: adApplications, applicationInstanceTotal: adApplications.size()]
 		render(view: "list",model:model)
 	}

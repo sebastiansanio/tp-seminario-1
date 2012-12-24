@@ -31,24 +31,24 @@ class Ad {
 		return title
 	}
 	
-	def isOffer(){
+	public boolean isOffer(){
 		return adType.isOffer()		
 	}
 	
-	def isWish(){
+	public boolean isWish(){
 		return adType.isWish()
 	}
-	def isActive(){
+	public boolean isActive(){
 		return adStatus.isActive()
 	}
-	def isFinalized(){
+	public boolean isFinalized(){
 		return adStatus.isFinalized()
 	}
-	def isSuspended(){
+	public boolean isSuspended(){
 		return adStatus.isSuspended()
 	}
 	
-	def createdToday(){
+	public boolean createdToday(){
 		Date date = new Date()
 		long daysDifference = date-dateCreated
 		return (daysDifference == 0)
