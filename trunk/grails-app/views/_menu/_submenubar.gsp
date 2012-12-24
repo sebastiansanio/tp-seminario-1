@@ -26,11 +26,8 @@
 		
 		
 		
-		<g:if test="${( params.action == 'show' || params.action == 'edit') && adInstance.user.username==SecurityUtils.subject.getPrincipal() }">
+		<g:if test="${( params.action == 'show') && adInstance.user.username==SecurityUtils.subject.getPrincipal() }">
 		
-			<li class="${ params.action == "edit" ? 'active' : '' }">
-				<g:link action="edit" id="${params.id}"><i class="icon-pencil"></i> <g:message code="default.edit.ad.label"  args="${[adInstance.adType] }"/></g:link>
-			</li>
 			<li class="">
 				<g:render template="/_common/modals/deleteTextLink"/>
 			</li>
@@ -69,11 +66,7 @@
 		
 		
 		
-		<g:if test="${ (params.action == 'show' || params.action == 'edit') && applicationInstance.user.username==SecurityUtils.subject.getPrincipal()}">
-			<!-- the item is an object (not a list) -->
-			<li class="${ params.action == "edit" ? 'active' : '' }">
-				<g:link action="edit" id="${params.id}"><i class="icon-pencil"></i> <g:message code="default.edit.label"  args="[entityName]"/></g:link>
-			</li>
+		<g:if test="${ (params.action == 'show') && applicationInstance.user.username==SecurityUtils.subject.getPrincipal()}">
 			<li class="">
 				<g:render template="/_common/modals/deleteTextLink"/>
 			</li>

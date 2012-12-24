@@ -82,46 +82,7 @@ class ApplicationController {
         [applicationInstance: applicationInstance]
     }
 
-    def edit() {
-        def applicationInstance = Application.get(params.id)
-        if (!applicationInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'application.label', default: 'Application'), params.id])
-            redirect(action: "list")
-            return
-        }
 
-        [applicationInstance: applicationInstance]
-    }
-
-    def update() {
-        def applicationInstance = Application.get(params.id)
-        if (!applicationInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'application.label', default: 'Application'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        if (params.version) {
-            def version = params.version.toLong()
-            if (applicationInstance.version > version) {
-                applicationInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'application.label', default: 'Application')] as Object[],
-                          "Another user has updated this Application while you were editing")
-                render(view: "edit", model: [applicationInstance: applicationInstance])
-                return
-            }
-        }
-
-        applicationInstance.properties = params
-
-        if (!applicationInstance.save(flush: true)) {
-            render(view: "edit", model: [applicationInstance: applicationInstance])
-            return
-        }
-
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'application.label', default: 'Application'), applicationInstance.id])
-        redirect(action: "show", id: applicationInstance.id)
-    }
 
     def delete() {
         def applicationInstance = Application.get(params.id)

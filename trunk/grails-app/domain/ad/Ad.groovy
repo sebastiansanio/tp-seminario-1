@@ -22,7 +22,7 @@ class Ad {
 	static constraints = {
 		title blank:false
 		description blank:false,size:10..400
-		budget nullable:true,scale:2
+		budget nullable:false,scale:2
 	}
 	
 	public String toString() {
