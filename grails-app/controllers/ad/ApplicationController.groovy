@@ -36,10 +36,17 @@ class ApplicationController {
 	}
 	
     def create() {
+		params.put('ad.id', params.adid)
+		
         [applicationInstance: new Application(params)]
     }
 
     def save() {
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		
+		params.put('user.id', user.id)
+		params.put('applicationStatus.id', ApplicationStatus.findByDescription(ApplicationStatus.pendingLabel).id)
+				
         def applicationInstance = new Application(params)
         if (!applicationInstance.save(flush: true)) {
             render(view: "create", model: [applicationInstance: applicationInstance])
