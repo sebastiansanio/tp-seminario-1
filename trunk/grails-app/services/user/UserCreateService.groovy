@@ -17,7 +17,7 @@ class UserCreateService {
 		
 		user.addToPermissions("main:*")
 		user.addToPermissions("ad:index,listMyOffers,listMyWishes,listOthersWishes,listOthersWishes,listOthersOffers,createWish,createOffer,save,show")
-		user.addToPermissions("application:index,listMyApplications,listReceivedApplications,create,save,show")
+		user.addToPermissions("application:index,listMyApplications,listReceivedApplications,create,save")
 		user.addToPermissions("user:show")
 		user.save()
     }

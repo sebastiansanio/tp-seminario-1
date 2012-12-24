@@ -64,8 +64,8 @@ class ApplicationController {
             return
         }
 
-		user.addToPermissions("application:edit,update,delete:"+applicationInstance.id)
-		
+		user.addToPermissions("application:delete,show:"+applicationInstance.id)
+		applicationsInstance.ad.user.addToPermissions("application:reject,approve,show:"+applicationInstance.id)
 		
 		flash.message = message(code: 'default.created.message', args: [message(code: 'application.label', default: 'Application'), applicationInstance.id])
         redirect(action: "show", id: applicationInstance.id)
