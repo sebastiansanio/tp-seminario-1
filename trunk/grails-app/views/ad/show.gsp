@@ -128,26 +128,20 @@
 				<td valign="top" class="name"><g:message code="ad.user.label" default="User" /></td>
 				
 				<td valign="top" class="value"><g:link controller="user" action="show" id="${adInstance?.user?.id}">${adInstance?.user?.encodeAsHTML()}</g:link></td>
-				
 			</tr>
+		</g:if>			
 			
-			
-			<tr class="prop">
-			
-				<td colspan="2" valign="top" class="name"><g:link controller="application" action="create" params="[adid:adInstance?.id]"><h3>
-				<g:message code="ad.apply.label" default="Apply" /></h3></g:link></td>
-				
-				
-			</tr>
-		
-		</g:if>
-		
-
-		
-		
-		
 		</tbody>
 	</table>
+				
+		<g:if test="${!SecurityUtils.subject.getPrincipal().equals(adInstance.user.username) }">
+			<div class="span12 btn btn-alert">
+				<g:link class="span12" controller="application" action="create" params="[adid:adInstance?.id]">
+					<g:message code="ad.apply.label" default="Apply" />
+				</g:link>
+	        </div>
+		</g:if>
+
 </section>
 
 </body>
