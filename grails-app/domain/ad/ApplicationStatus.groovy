@@ -25,8 +25,8 @@ class ApplicationStatus {
 	}
 	
 	
-	public boolean isActive(){
-		return description.equals(activeLabel)
+	public boolean isPending(){
+		return description.equals(pendingLabel)
 	}
 	
 	public boolean isFinalized(){
@@ -40,6 +40,8 @@ class ApplicationStatus {
 	public boolean isRejected(){
 		return description.equals(rejectedLabel)
 	}
-	
+	public boolean isAccepted(){
+		return description.equals(acceptedLabel)
+	}
 	
 }

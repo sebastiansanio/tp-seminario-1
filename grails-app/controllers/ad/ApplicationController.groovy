@@ -10,22 +10,31 @@ class ApplicationController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        redirect(action: "listMyApplications", params: params)
     }
 
 	def listMyApplications(){
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
-		def adApplications = user.applications
+		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def adApplications = currentUser.applications
 		def model = [applicationInstanceList: adApplications, applicationInstanceTotal: adApplications.size()]
 		render(view: "list",model:model)
 	}
 	
-    def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [applicationInstanceList: Application.list(params), applicationInstanceTotal: Application.count()]
-    }
+	def listReceivedApplications(){
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
 
+		def adApplications = Application.findAll {			
+			it.ad.user==currentUser
+		}
+		adApplications = adApplications.findAll{
+			it.isPending()
+		}
+		def model = [applicationInstanceList: adApplications, applicationInstanceTotal: adApplications.size()]
+		render(view: "list",model:model)
+	}
+	
     def create() {
         [applicationInstance: new Application(params)]
     }

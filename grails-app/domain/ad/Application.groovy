@@ -18,14 +18,15 @@ class Application {
 		description blank:false
 		budget scale: 2
 		feedback nullable:true
+		budget nullable:true
 	}
 	
 	public String toString() {
 		return user.toString()+": "+description
 	}
 	
-	def isActive(){
-		return applicationStatus.isActive()
+	def isPending(){
+		return applicationStatus.isPending()
 	}
 	def isFinalized(){
 		return applicationStatus.isFinalized()
@@ -35,6 +36,9 @@ class Application {
 	}
 	def isRejected(){
 		return applicationStatus.isRejected()
+	}
+	def isAccepted(){
+		return applicationStatus.isAccepted()
 	}
 
 }
