@@ -8,19 +8,20 @@ class Application {
 	Date	lastUpdated
 	User user
 	String description
+	BigDecimal budget
 	ApplicationStatus applicationStatus
+	Feedback feedback
 	
 	static belongsTo	= [ad: Ad]
-	static hasOne		= [feedback: Feedback]	
-
     
 	static constraints = {
-
-			
+		description blank:false
+		budget scale: 2
+		feedback nullable:true
 	}
 	
 	public String toString() {
-		return user+": "+description
+		return user.toString()+": "+description
 	}
 	
 	def isActive(){

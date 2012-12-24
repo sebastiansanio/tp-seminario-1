@@ -1,3 +1,5 @@
+<%@ page import="org.apache.shiro.SecurityUtils" %>
+
 <ul class="nav pull-right">
 	<li class="dropdown dropdown-btn">
 <%--<sec:ifNotLoggedIn>--%>
@@ -27,6 +29,7 @@
 <shiro:isLoggedIn>
 <a href="${createLink(controller:'auth',action:'signOut')}">
 ${message(code: 'default.signout.label')}
+${SecurityUtils.subject.getPrincipal()}
 </a>
 </shiro:isLoggedIn>
 

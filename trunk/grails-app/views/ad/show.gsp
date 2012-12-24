@@ -18,6 +18,39 @@
 	<table class="table">
 		<tbody>
 		
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.adType.label" default="Type" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "adType")}</td>
+				
+			</tr>
+
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.family.label" default="Family" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "family")}</td>
+				
+			</tr>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.title.label" default="Title" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "title")}</td>
+				
+			</tr>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.description.label" default="Description" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "description")}</td>
+				
+			</tr>
+		
+		
+		
+		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.dateCreated.label" default="Date Created" /></td>
 				
@@ -39,13 +72,6 @@
 				<td valign="top" class="value"><g:formatDate date="${adInstance?.lastUpdated}" /></td>
 				
 		
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="ad.family.label" default="Family" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "family")}</td>
-				
 			</tr>
 		
 		
@@ -77,14 +103,6 @@
 	
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="ad.description.label" default="Description" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "description")}</td>
-				
-			</tr>
-		
-		
-			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.minimumReputation.label" default="Minimum reputation" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "minimumReputation")}</td>
@@ -95,6 +113,13 @@
 				<td valign="top" class="name"><g:message code="ad.applicationsLimit.label" default="Applications Limit" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "applicationsLimit")}</td>
+				
+			</tr>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.budget.label" default="Budget" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "budget")}</td>
 				
 			</tr>
 		

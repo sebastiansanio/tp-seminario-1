@@ -27,10 +27,10 @@
 
 <div class="${menuposition}">
 	<ul class="${menutype}" data-role="listview" data-split-icon="gear" data-filter="true">
-		<g:each status="i" var="c" in="${grailsApplication.controllerClasses.findAll{it.name in ['Main','Ad','Family']}}">
+		<g:each status="i" var="c" in="${grailsApplication.controllerClasses}">
 			
 			
-			<g:if test="${SecurityUtils.subject.isPermitted(c.logicalPropertyName)}">
+			<g:if test="${SecurityUtils.subject.isPermitted(c.logicalPropertyName+":index")}">
 				
 				<li class="controller${params.controller == c.logicalPropertyName ? " active" : ""}">
 					<g:link controller="${c.logicalPropertyName}" action="index">

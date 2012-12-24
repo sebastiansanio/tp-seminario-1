@@ -6,12 +6,14 @@ class Ad {
 
 	Date	dateCreated
 	Date	lastUpdated
+	String title
 	String description
 	AdType adType
 	AdStatus adStatus
 	Family family
 	long minimumReputation
 	int applicationsLimit
+	BigDecimal budget
 	
 	
 	static belongsTo	= [user: User]	
@@ -19,13 +21,14 @@ class Ad {
 	
    
 	static constraints = {
+		title blank:false
 		description blank:false,size:10..400
 		minimumReputation nullable: false
-   
+		budget nullable:true,scale:2
 	}
 	
 	public String toString() {
-		return description
+		return title
 	}
 	
 	def isOffer(){

@@ -5,7 +5,7 @@ class AdType {
 	
 	String description
 	
-	static String wishLabel = "Deseo"
+	static String wishLabel = "Solicitud"
 	static String offerLabel = "Oferta"
 	
 	static hasMany		= [ads: Ad]	

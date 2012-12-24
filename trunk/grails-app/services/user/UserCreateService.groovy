@@ -16,7 +16,9 @@ class UserCreateService {
 		user.addToReputations(new Reputation(userRole:UserRole.findByDescription(UserRole.clientLabel),value:0))
 		
 		user.addToPermissions("main:*")
-		user.addToPermissions("ad:*")
+		user.addToPermissions("ad:index,listMyOffers,listMyWishes,listOthersWishes,listOthersWishes,listOthersOffers,createWish,createOffer,save,show")
+		user.addToPermissions("application:*")
+		user.addToPermissions("user:show")
 		user.save()
     }
 }
