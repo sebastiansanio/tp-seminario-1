@@ -9,12 +9,16 @@ class User {
     String username
     String passwordHash
 	Place place
+	String emailAddress
+	String telephone
+	
 	
     static hasMany = [ roles: Role, permissions: String, reputations: Reputation, ads: Ad,applications:Application]
 
     static constraints = {
-        username(blank: false, unique: true)
-
+        username blank: false, unique: true
+		emailAddress blank:false, email: true
+		telephone blank:false
     }
 	
 	public String toString(){

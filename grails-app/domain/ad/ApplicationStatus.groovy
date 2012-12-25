@@ -17,7 +17,7 @@ class ApplicationStatus {
     }
     
 	static constraints = {
-		description inList:[pendingLabel,finalizedLabel,suspendedLabel,rejectedLabel,acceptedLabel]
+		description inList:[pendingLabel,finalizedLabel,suspendedLabel,rejectedLabel,acceptedLabel], unique:true
     }
 	
 	public String toString() {
