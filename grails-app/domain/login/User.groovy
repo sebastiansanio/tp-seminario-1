@@ -38,6 +38,13 @@ class User {
 		}
 	}
 	
+	def getActiveAds(){
+		ads.findAll{
+			it.isActive()
+		}
+	}
+	
+	
 	def getOffererReputation(){
 		def reputation = reputations.find {
 			it.isForOfferer()
