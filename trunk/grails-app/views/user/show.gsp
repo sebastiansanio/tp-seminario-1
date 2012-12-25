@@ -37,18 +37,6 @@
 				
 			</tr>
 		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="user.applications.label" default="Applications" /></td>
-				
-				<td valign="top" style="text-align: left;" class="value">
-					<ul>
-					<g:each in="${userInstance.applications}" var="a">
-						<li><g:link controller="application" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
-					</g:each>
-					</ul>
-				</td>
-				
-			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="user.dateCreated.label" default="Date Created" /></td>
@@ -57,59 +45,42 @@
 				
 			</tr>
 		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="user.lastUpdated.label" default="Last Updated" /></td>
-				
-				<td valign="top" class="value"><g:formatDate date="${userInstance?.lastUpdated}" /></td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="user.passwordHash.label" default="Password Hash" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: userInstance, field: "passwordHash")}</td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="user.permissions.label" default="Permissions" /></td>
-				
-				<td valign="top" class="value">${fieldValue(bean: userInstance, field: "permissions")}</td>
-				
-			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="user.place.label" default="Place" /></td>
 				
-				<td valign="top" class="value"><g:link controller="place" action="show" id="${userInstance?.place?.id}">${userInstance?.place?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value">${userInstance?.place?.encodeAsHTML()}</td>
 				
 			</tr>
 		
+		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="user.reputations.label" default="Reputations" /></td>
+				<td valign="top" class="name"><g:message code="user.reputation.offerer.label" default="Reputations" /></td>
 				
 				<td valign="top" style="text-align: left;" class="value">
 					<ul>
-					<g:each in="${userInstance.reputations}" var="r">
-						<li><g:link controller="reputation" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>
-					</g:each>
+					
+					${userInstance.getOffererReputation()}
+
 					</ul>
 				</td>
 				
 			</tr>
 		
+		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="user.roles.label" default="Roles" /></td>
+				<td valign="top" class="name"><g:message code="user.reputation.client.label" default="Reputations" /></td>
 				
 				<td valign="top" style="text-align: left;" class="value">
 					<ul>
-					<g:each in="${userInstance.roles}" var="r">
-						<li><g:link controller="role" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>
-					</g:each>
+
+					${userInstance.getClientReputation()}
+
 					</ul>
 				</td>
 				
 			</tr>
+		
 		
 		</tbody>
 	</table>

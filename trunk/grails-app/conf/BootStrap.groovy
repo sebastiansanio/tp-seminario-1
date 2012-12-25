@@ -64,9 +64,9 @@ class BootStrap {
 		def place3 = new Place(name:"Córdoba")
 		place3.save()
 	
-		userCreateService.createUser("santiago","santiago",place1)
-		userCreateService.createUser("sebastian","sebastian",place1)
-		userCreateService.createUser("gaston","gaston",place2)
+		userCreateService.createUser("santiago","santiago",place1,"santiago@aaa.com","11111111")
+		userCreateService.createUser("sebastian","sebastian",place1,"sebastian@aaa.com","22222222")
+		userCreateService.createUser("gaston","gaston",place2,"gaston@aaa.com","33333333")
 		
 		
 	}

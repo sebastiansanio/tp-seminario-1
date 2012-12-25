@@ -14,7 +14,7 @@ class AdType {
     }
     
 	static constraints = {
-    	description inList:[wishLabel,offerLabel] 
+    	description inList:[wishLabel,offerLabel], unique:true
 		
 	}
 	

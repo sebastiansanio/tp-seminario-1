@@ -16,7 +16,7 @@ class AdStatus {
     }
     
 	static constraints = {
-		description inList:[activeLabel,finalizedLabel,suspendedLabel]
+		description inList:[activeLabel,finalizedLabel,suspendedLabel], unique:true
     }
 	
 	public String toString() {
