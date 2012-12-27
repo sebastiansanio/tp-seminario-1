@@ -28,7 +28,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="application.applicationStatus.label" default="Application Status" /></td>
 				
-				<td valign="top" class="value"><g:link controller="applicationStatus" action="show" id="${applicationInstance?.applicationStatus?.id}">${applicationInstance?.applicationStatus?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value">${applicationInstance?.applicationStatus?.encodeAsHTML()}</td>
 				
 			</tr>
 		
@@ -49,23 +49,14 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="application.description.label" default="Description" /></td>
 				
-				<td valign="top" class="value">${fieldValue(bean: applicationInstance, field: "description")}</td>
+				<td valign="top" class="value">
+				
+					<g:textArea disabled="true" style="width: 80%;" rows="7" name="description" value="${applicationInstance?.description}"/>
+				</td>
 				
 			</tr>
 		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="application.feedback.label" default="Feedback" /></td>
-				
-				<td valign="top" class="value"><g:link controller="feedback" action="show" id="${applicationInstance?.feedback?.id}">${applicationInstance?.feedback?.encodeAsHTML()}</g:link></td>
-				
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="application.lastUpdated.label" default="Last Updated" /></td>
-				
-				<td valign="top" class="value"><g:formatDate date="${applicationInstance?.lastUpdated}" /></td>
-				
-			</tr>
+
 	<g:if test="${!SecurityUtils.subject.getPrincipal().equals(applicationInstance.user.username) }">
 			
 			<tr class="prop">
@@ -76,8 +67,24 @@
 			</tr>
 	</g:if>
 		
+		
+		
 		</tbody>
 	</table>
+	
+	<g:if test="${!SecurityUtils.subject.getPrincipal().equals(applicationInstance.user.username) && applicationInstance.isPending() }">
+			<div class="span12 btn btn-alert">
+				<g:link class="span12" action="accept" id="${ applicationInstance?.id}">
+					<g:message code="application.accept.label" default="Accept" />
+				</g:link>
+	        </div>
+	        <div class="span12 btn btn-danger">
+				<g:link class="span12" action="reject" id="${ applicationInstance?.id}">
+					<g:message code="application.reject.label" default="Reject" />
+				</g:link>
+	        </div>
+	</g:if>
+		
 </section>
 
 </body>

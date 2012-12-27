@@ -59,7 +59,7 @@ class LimitCheckerService {
 			flash.message = "No puede aplicar debido a que no cumple con las restricciones de localización. "
 			return false
 		}
-		if(ad.getPendingApplications().size()>=ad.applicationsLimit){
+		if(ad.getPossibleApplicationsQuantity()==0){
 			flash.message = "El aviso no puede recibir más aplicaciones en este momento. "
 			return false
 		}

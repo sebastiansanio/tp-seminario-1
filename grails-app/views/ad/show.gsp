@@ -72,14 +72,6 @@
 				
 			</tr>
 		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="ad.lastUpdated.label" default="Last Updated" /></td>
-				
-				<td valign="top" class="value"><g:formatDate date="${adInstance?.lastUpdated}" /></td>
-				
-		
-			</tr>
-		
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="ad.applications.label" default="Applications" /></td>
@@ -87,7 +79,7 @@
 				<td valign="top" style="text-align: left;" class="value">
 					<ul>
 					<g:each in="${adInstance.applications}" var="a">
-						<li><g:link controller="application" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
+						<li><g:link controller="application" action="show" id="${a.id}">${a?.encodeAsHTML()+" ("+a?.applicationStatus.encodeAsHTML()+")"}</g:link></li>
 					</g:each>
 					</ul>
 				</td>
@@ -108,11 +100,20 @@
 	
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="ad.applicationsLimit.label" default="Applications Limit" /></td>
+				<td valign="top" class="name"><g:message code="ad.possibleApplicationsQuantity.label" default="Applications limit left" /></td>
 				
-				<td valign="top" class="value">${fieldValue(bean: adInstance, field: "applicationsLimit")}</td>
+				<td valign="top" class="value">${adInstance.getPossibleApplicationsQuantity()}</td>
 				
 			</tr>
+		</g:if>
+		<g:if test="${!SecurityUtils.subject.getPrincipal().equals(adInstance.user.username) }">
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="ad.admitsApplications.label" default="Admits applications?" /></td>
+				
+				<td valign="top" class="value">${(adInstance.getPossibleApplicationsQuantity()==0 && adInstance.isActive())?message(code:"no.label"):message(code:"yes.label")}</td>
+				
+			</tr>
+
 		</g:if>
 			
 			<tr class="prop">

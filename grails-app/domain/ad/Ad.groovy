@@ -23,6 +23,7 @@ class Ad {
 		title blank:false
 		description blank:false,size:10..400
 		budget nullable:false,scale:2
+		applicationsLimit min:1
 	}
 	
 	public String toString() {
@@ -46,10 +47,20 @@ class Ad {
 		return adStatus.isSuspended()
 	}
 	
-	public getPendingApplications(){
+	public Set getPendingApplications(){
 		return applications.findAll{
 			it.isPending()
 		}
+	}
+	
+	public Set getAcceptedApplications(){
+		return applications.findAll{
+			it.isAccepted()
+		}
+	}
+	
+	public int getPossibleApplicationsQuantity(){
+		return (applicationsLimit - getPendingApplications().size())
 	}
 	
 	public boolean createdToday(){
