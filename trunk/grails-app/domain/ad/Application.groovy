@@ -10,14 +10,16 @@ class Application {
 	String description
 	BigDecimal budget
 	ApplicationStatus applicationStatus
-	Feedback feedback
+	Feedback applicantFeedback
+	Feedback advertiserFeedback
 	
 	static belongsTo	= [ad: Ad]
     
 	static constraints = {
 		description blank:false
 		budget scale: 2
-		feedback nullable:true
+		applicantFeedback nullable:true
+		advertiserFeedback nullable:true
 		budget nullable:true
 	}
 	

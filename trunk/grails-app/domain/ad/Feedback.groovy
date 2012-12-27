@@ -4,14 +4,15 @@ import login.*
 class Feedback {
 
 	Date	dateCreated
-	Date	lastUpdated
 	String note
+	long score
 		
 	static belongsTo	= [application: Application]	
 	
      
 	static constraints = {
-
+		note blank: true
+		score nullable: false
     }
 	
 	public String toString() {

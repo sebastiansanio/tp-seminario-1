@@ -19,7 +19,7 @@
 		<thead>
 			<tr>
 			
-				<g:if test="${ params.action == "listReceivedApplications"}">
+				<g:if test="${ params.action == "listReceivedApplications" || params.action == "listMyAcceptedApplications"}">
 					<g:sortableColumn property="user" title="${message(code: 'application.user.label', default: 'User')}" />	
 				</g:if>	
 			
@@ -45,7 +45,7 @@
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 			
 			
-				<g:if test="${ params.action == "listReceivedApplications"}">
+				<g:if test="${ params.action == "listReceivedApplications" || params.action == "listMyAcceptedApplications"}">
 			
 					<td><g:link controller="user" action="show" id="${applicationInstance.user.id}">${applicationInstance.user }</g:link></td>
 			

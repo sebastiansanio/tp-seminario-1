@@ -23,7 +23,7 @@
 				<g:sortableColumn property="title" title="${message(code: 'ad.title.label', default: 'Title')}" />
 				<g:sortableColumn property="dateCreated" title="${message(code: 'ad.dateCreated.label', default: 'Date Created')}" />
 				<g:sortableColumn property="adStatus" title="${message(code: 'ad.adStatus.label', default: 'Ad Status')}" />
-				<g:sortableColumn property="applicationsLimit" title="${message(code: 'ad.applicationsLimit.label', default: 'Applications limit')}" />
+				<g:sortableColumn property="applicationsLimit" title="${message(code: 'ad.admitsApplications.label', default: 'Admits applications')}" />
 				<g:sortableColumn property="budget" title="${message(code: 'ad.budget.label', default: 'Budget')}" />
 
 			
@@ -39,7 +39,7 @@
 				<td><g:link action="show" id="${adInstance.id}">${fieldValue(bean: adInstance, field: "title")}</g:link></td>
 				<td>${fieldValue(bean: adInstance, field: "dateCreated")}</td>		
 				<td>${fieldValue(bean: adInstance, field: "adStatus")}</td>
-				<td>${fieldValue(bean: adInstance, field: "applicationsLimit")}</td>
+				<td>${(adInstance.getPossibleApplicationsQuantity()==0 && adInstance.isActive()) ?message(code:"no.label"):message(code:"yes.label")}</td>
 				<td>${fieldValue(bean: adInstance, field: "budget")}</td>
 
 			

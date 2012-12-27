@@ -20,5 +20,23 @@ class StatusChangeService {
 		def applicationStatus = ApplicationStatus.findByDescription(ApplicationStatus.suspendedLabel)
 		application.applicationStatus = applicationStatus 
 	}
+	def rejectApplication(Application application){
+		def applicationStatus = ApplicationStatus.findByDescription(ApplicationStatus.rejectedLabel)
+		application.applicationStatus = applicationStatus
+	}
 	
+	def acceptApplication(Application application){
+		def acceptedStatus = ApplicationStatus.findByDescription(ApplicationStatus.acceptedLabel)
+		application.applicationStatus = acceptedStatus
+		
+		finalizeAd(application.ad)
+		def remanentApplications = application.ad.applications.each {
+			if(it.isPending())
+				rejectApplication(it)
+		}	
+		
+		application.user.addToPermissions("user:showAllInfo:"+application.ad.user.id)
+		application.ad.user.addToPermissions("user:showAllInfo:"+application.user.id)
+	}
+
 }

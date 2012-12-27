@@ -1,5 +1,6 @@
 
 <%@ page import="login.User" %>
+<%@ page import="org.apache.shiro.SecurityUtils" %>
 <!doctype html>
 <html>
 
@@ -80,6 +81,23 @@
 				</td>
 				
 			</tr>
+		
+		<g:if test="${SecurityUtils.subject.isPermitted("user:showAllInfo:"+userInstance.id) }">	
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="user.emailAddress.label" default="Email" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: userInstance, field: "emailAddress")}</td>
+				
+			</tr>
+			
+				<tr class="prop">
+				<td valign="top" class="name"><g:message code="user.telephone.label" default="Telephone" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: userInstance, field: "telephone")}</td>
+				
+			</tr>
+		
+		</g:if>
 		
 		
 		</tbody>
