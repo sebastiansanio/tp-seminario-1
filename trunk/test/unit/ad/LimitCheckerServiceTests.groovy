@@ -1,11 +1,11 @@
-package modal
+package ad
 
 
 
 import grails.test.mixin.*
 import org.junit.*
 
-import rule.LimitCheckerService;
+import ad.LimitCheckerService;
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions

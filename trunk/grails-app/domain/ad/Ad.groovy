@@ -58,6 +58,11 @@ class Ad {
 			it.isAccepted()
 		}
 	}
+	public Set getFinalizedApplications(){
+		return applications.findAll{
+			it.isFinalized()
+		}
+	}
 	
 	public int getPossibleApplicationsQuantity(){
 		return (applicationsLimit - getPendingApplications().size())
