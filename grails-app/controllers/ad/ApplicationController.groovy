@@ -9,6 +9,8 @@ class ApplicationController {
 
 	def statusChangeService
 	def limitCheckerService
+	def applicationCreateService
+	def feedbackManagerService
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -52,10 +54,9 @@ class ApplicationController {
     def create() {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		def ad = Ad.get(params.adid)
-		
+			
 		if(limitCheckerService.checkApplicationLimit(user,ad,flash)){
-			params.put('ad.id', params.adid)
-			def applicationInstance= new Application(params)
+			def applicationInstance= applicationCreateService.createApplication(params,user)
 			render(view: "create",model:[applicationInstance:applicationInstance])
 		}else{
 			redirect(controller:"ad",action: "show",id:params.adid)
@@ -64,10 +65,9 @@ class ApplicationController {
 
     def save() {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
-		params.put('user.id', user.id)
-		params.put('applicationStatus.id', ApplicationStatus.findByDescription(ApplicationStatus.pendingLabel).id)
 				
-        def applicationInstance = new Application(params)
+		
+        def applicationInstance = applicationCreateService.prepareApplicationToSave(params,user)
 		
 		if(!limitCheckerService.checkApplicationLimit(user,applicationInstance.ad,flash)){
 			render(view: "create", model: [applicationInstance: applicationInstance])
@@ -78,7 +78,7 @@ class ApplicationController {
             render(view: "create", model: [applicationInstance: applicationInstance])
             return
         }
-
+		
 		user.addToPermissions("application:delete:"+applicationInstance.id)
 		user.addToPermissions("application:show:"+applicationInstance.id)
 		applicationInstance.ad.user.addToPermissions("application:reject,accept:"+applicationInstance.id)
@@ -92,7 +92,7 @@ class ApplicationController {
         def applicationInstance = Application.get(params.id)
         if (!applicationInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'application.label', default: 'Application'), params.id])
-            redirect(action: "list")
+            redirect(action: "listMyApplications")
             return
         }
 
@@ -105,7 +105,7 @@ class ApplicationController {
         def applicationInstance = Application.get(params.id)
 		if (!applicationInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'application.label', default: 'Application'), params.id])
-            redirect(action: "list")
+            redirect(action: "listMyApplications")
             return
         }
 
@@ -119,11 +119,10 @@ class ApplicationController {
 				
 		if (!applicationInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'application.label', default: 'Application'), params.id])
-			redirect(action: "list")
+			redirect(action: "listMyApplications")
 			return
 		}
 		statusChangeService.acceptApplication(applicationInstance)
-		applicationInstance.ad.user.removeFromPermissions("application:reject,accept:"+applicationInstance.id)
 		redirect(action: "show", id: applicationInstance.id)
 	}
 	
@@ -132,12 +131,13 @@ class ApplicationController {
 	
 		if (!applicationInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'application.label', default: 'Application'), params.id])
-			redirect(action: "list")
+			redirect(action: "listMyApplications")
 			return
 		}
 
 		statusChangeService.rejectApplication(applicationInstance)
-		applicationInstance.ad.user.removeFromPermissions("application:reject,accept:"+applicationInstance.id)
 		redirect(action: "show", id: applicationInstance.id)
 	}
+	
+
 }

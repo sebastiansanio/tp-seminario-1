@@ -1,17 +1,15 @@
-package rule
+package ad
 
 
 
 import grails.test.mixin.*
 import org.junit.*
 
-import ad.StatusChangeService;
-
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(StatusChangeService)
-class StatusChangeServiceTests {
+@TestFor(ApplicationCreateService)
+class ApplicationCreateServiceTests {
 
     void testSomething() {
         fail "Implement me"

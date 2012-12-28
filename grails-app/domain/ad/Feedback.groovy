@@ -12,10 +12,10 @@ class Feedback {
      
 	static constraints = {
 		note blank: true
-		score nullable: false
+		score nullable: false, range:0..10
     }
 	
 	public String toString() {
-		return user+": "+note
+		return user+": "+note+" ("+score+")"
 	}
 }

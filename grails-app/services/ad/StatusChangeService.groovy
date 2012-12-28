@@ -1,5 +1,4 @@
-package rule
-import ad.*
+package ad
 
 
 class StatusChangeService {
@@ -23,6 +22,8 @@ class StatusChangeService {
 	def rejectApplication(Application application){
 		def applicationStatus = ApplicationStatus.findByDescription(ApplicationStatus.rejectedLabel)
 		application.applicationStatus = applicationStatus
+		application.ad.user.removeFromPermissions("application:reject,accept:"+application.id)
+		
 	}
 	
 	def acceptApplication(Application application){
@@ -37,6 +38,6 @@ class StatusChangeService {
 		
 		application.user.addToPermissions("user:showAllInfo:"+application.ad.user.id)
 		application.ad.user.addToPermissions("user:showAllInfo:"+application.user.id)
+		application.ad.user.removeFromPermissions("application:reject,accept:"+application.id)
 	}
-
 }

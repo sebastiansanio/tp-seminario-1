@@ -10,6 +10,7 @@ class AdController {
 
 	def statusChangeService
 	def limitCheckerService
+	def adCreateService
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -57,8 +58,7 @@ class AdController {
     def createWish() {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		if(limitCheckerService.checkWishesLimit(user,flash)){
-			def adInstance = new Ad(params)
-			adInstance.adType = AdType.findByDescription(AdType.wishLabel)
+			def adInstance = adCreateService.createWish(params)
 			render(view: "create",model:[adInstance:adInstance])
 		}else{
 			redirect(action: "listMyWishes")
@@ -68,29 +68,20 @@ class AdController {
 	def createOffer() {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		if(limitCheckerService.checkOffersLimit(user,flash)){
-			def adInstance = new Ad(params)
-			adInstance.adType = AdType.findByDescription(AdType.offerLabel)
+			def adInstance = adCreateService.createOffer(params)
 			render(view: "create",model:[adInstance:adInstance])
 		}else{
 			redirect(action: "listMyOffers")
 		}		
 	
 	}
-		
 	
     def save() {
 		
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())	
-		params.put('user.id', user.id)
-		params.put('adStatus.id', AdStatus.findByDescription(AdStatus.activeLabel).id)
-        def adInstance = new Ad(params)
-		def desiredPlaces = params.get("desiredPlaces.id")	
-		desiredPlaces.each {
-			adInstance.addToDesiredPlaces(Place.get(it))
-		}
-	
-		boolean canContinue
+		def adInstance = adCreateService.prepareAdToSave(params,user)
 		
+		boolean canContinue	
 		if(adInstance.isOffer())
 			canContinue=limitCheckerService.checkOffersLimit(user,flash)
 		else

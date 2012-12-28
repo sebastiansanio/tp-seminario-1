@@ -84,6 +84,18 @@
 				</g:link>
 	        </div>
 	</g:if>
+	
+	<g:if test="${applicationInstance.isAccepted() && (SecurityUtils.subject.getPrincipal().equals(applicationInstance.user.username)||SecurityUtils.subject.getPrincipal().equals(applicationInstance.ad.user.username) )}">
+
+			<div class="span12 btn btn-alert">
+				<g:link class="span12" controller="feedback" action="create" params="[applicationid:applicationInstance?.id]">
+					<g:message code="application.feedback.label" default="Give feedback" />
+				</g:link>
+	        </div>
+
+	</g:if>
+	
+	
 		
 </section>
 

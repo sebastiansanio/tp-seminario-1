@@ -1,4 +1,4 @@
-package rule
+package ad
 import login.User
 import user.*
 import modal.*
