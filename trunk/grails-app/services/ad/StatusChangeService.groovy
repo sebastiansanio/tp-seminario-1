@@ -5,6 +5,10 @@ class StatusChangeService {
 
     static transactional = true
 
+	def activateAd(Ad ad) {
+		ad.user.addToPermissions("ad:delete:"+ad.id)
+	}
+	
     def suspendAd(Ad ad) {
 		def adStatus = AdStatus.findByDescription(AdStatus.suspendedLabel)
 		ad.adStatus = adStatus
@@ -15,10 +19,21 @@ class StatusChangeService {
 		ad.adStatus = adStatus
 	}
 	
+	def activateApplication(Application application){
+
+		application.user.addToPermissions("application:delete:"+application.id)
+		application.user.addToPermissions("application:show:"+application.id)
+		application.ad.user.addToPermissions("application:reject,accept:"+application.id)
+		application.ad.user.addToPermissions("application:show:"+application.id)
+		
+	}
+	
+	
 	def suspendApplication(Application application){
 		def applicationStatus = ApplicationStatus.findByDescription(ApplicationStatus.suspendedLabel)
 		application.applicationStatus = applicationStatus 
 	}
+	
 	def rejectApplication(Application application){
 		def applicationStatus = ApplicationStatus.findByDescription(ApplicationStatus.rejectedLabel)
 		application.applicationStatus = applicationStatus

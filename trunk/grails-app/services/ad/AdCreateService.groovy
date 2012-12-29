@@ -19,12 +19,12 @@ class AdCreateService {
 	
 	def prepareAdToSave(params,user){
 		def adInstance = new Ad(params)
-		adInstance.adStatus = AdStatus.findByDescription(AdStatus.activeLabel)
 		adInstance.user = user
 		def desiredPlaces = params.get("desiredPlaces.id")
 		desiredPlaces.each {
 			adInstance.addToDesiredPlaces(Place.get(it))
 		}
+		adInstance.adStatus = AdStatus.findByDescription(AdStatus.activeLabel)
 		return adInstance
 	}
 }

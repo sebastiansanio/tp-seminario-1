@@ -97,7 +97,8 @@ class AdController {
             return
         }
 
-		user.addToPermissions("ad:delete:"+adInstance.id)
+		
+		statusChangeService.activateAd(adInstance)
 		
 		flash.message = message(code: 'default.created.message', args: [message(code: 'ad.label', default: 'Ad'), adInstance.id])
         redirect(action: "show", id: adInstance.id)

@@ -2,7 +2,6 @@ package ad
 import login.User
 import user.*
 import modal.*
-import ad.*
 
 class LimitCheckerService {
 
