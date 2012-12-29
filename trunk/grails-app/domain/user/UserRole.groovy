@@ -20,11 +20,11 @@ class UserRole {
 		return description
 	}
 	
-	def isOfferer(){
+	public boolean isOfferer(){
 		return description.equals(offererLabel)
 	}
 	
-	def isClient(){
+	public boolean isClient(){
 		return description.equals(clientLabel)
 	}
 }

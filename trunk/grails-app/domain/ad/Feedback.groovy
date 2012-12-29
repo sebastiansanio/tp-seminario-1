@@ -16,6 +16,6 @@ class Feedback {
     }
 	
 	public String toString() {
-		return user+": "+note+" ("+score+")"
+		return note+" ("+score+")"
 	}
 }

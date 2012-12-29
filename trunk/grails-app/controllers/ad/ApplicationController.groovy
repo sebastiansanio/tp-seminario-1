@@ -50,13 +50,25 @@ class ApplicationController {
 		def model = [applicationInstanceList: adApplications, applicationInstanceTotal: adApplications.size()]
 		render(view: "list",model:model)
 	}
+	def listMyFinalizedApplications(){
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
+
+		def adApplications = new ArrayList<Application>()
+		currentUser.ads.each{
+			adApplications.addAll(it.getFinalizedApplications())
+		}
+		
+		def model = [applicationInstanceList: adApplications, applicationInstanceTotal: adApplications.size()]
+		render(view: "list",model:model)
+	}
 	
     def create() {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		def ad = Ad.get(params.adid)
 			
 		if(limitCheckerService.checkApplicationLimit(user,ad,flash)){
-			def applicationInstance= applicationCreateService.createApplication(params,user)
+			def applicationInstance= applicationCreateService.createApplication(params)
 			render(view: "create",model:[applicationInstance:applicationInstance])
 		}else{
 			redirect(controller:"ad",action: "show",id:params.adid)
@@ -65,8 +77,6 @@ class ApplicationController {
 
     def save() {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
-				
-		
         def applicationInstance = applicationCreateService.prepareApplicationToSave(params,user)
 		
 		if(!limitCheckerService.checkApplicationLimit(user,applicationInstance.ad,flash)){

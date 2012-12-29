@@ -103,4 +103,20 @@ class User {
 		}
 		return todayWishes.size()
 	}
+	
+	def scoreAsOfferer(long score){
+		def reputation = reputations.find {
+			it.isForOfferer()
+		}
+		reputation.value += score
+	}
+	
+	def scoreAsClient(long score){
+		def reputation = reputations.find {
+			it.isForClient()
+		}
+		reputation.value += score
+	}
+
+
 }

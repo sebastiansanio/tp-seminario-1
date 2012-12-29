@@ -28,8 +28,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="application.applicationStatus.label" default="Application Status" /></td>
 				
-				<td valign="top" class="value">${applicationInstance?.applicationStatus?.encodeAsHTML()}</td>
-				
+				<td valign="top" class="value">${applicationInstance?.applicationStatus?.encodeAsHTML()}</td>				
 			</tr>
 		
 			<tr class="prop">
@@ -56,6 +55,28 @@
 				
 			</tr>
 		
+		<g:if test="${applicationInstance.isFinalized() }">
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="application.advertiserFeedback.label" default="Advertiser feedback" /></td>
+				
+				<td valign="top" class="value">
+				
+					<g:textArea disabled="true" style="width: 80%;" rows="3" name="advertiserFeedback" value="${applicationInstance?.advertiserFeedback}"/>
+				</td>
+				
+			</tr>
+
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="application.applicantFeedback.label" default="Applicant feedback" /></td>
+				
+				<td valign="top" class="value">
+				
+					<g:textArea disabled="true" style="width: 80%;" rows="3" name="applicantFeedback" value="${applicationInstance?.applicantFeedback}"/>
+				</td>
+				
+			</tr>
+		</g:if>
 
 	<g:if test="${!SecurityUtils.subject.getPrincipal().equals(applicationInstance.user.username) }">
 			

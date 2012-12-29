@@ -1,9 +1,13 @@
 <%@ page import="ad.Feedback" %>
 
-			<div class="control-group fieldcontain ${hasErrors(bean: feedbackInstance, field: 'application', 'error')} required">
-				<label for="application" class="control-label"><g:message code="feedback.application.label" default="Application" /><span class="required-indicator">*</span></label>
+			<div class="control-group fieldcontain ${hasErrors(bean: feedbackInstance, field: 'application', 'error')}">
+				<label for="application" class="control-label"><g:message code="feedback.application.label" default="Application" /></label>
 				<div class="controls">
-					<g:select id="application" name="application.id" from="${ad.Application.list()}" optionKey="id" required="" value="${feedbackInstance?.application?.id}" class="many-to-one"/>
+				
+			     	<g:textArea disabled="disabled" style="width: 50%;" rows="7" name="note" value="${feedbackInstance.application}"/>
+
+					<input type="hidden" id="application" name="application.id" value=" ${feedbackInstance.application.id}"/>
+				
 					<span class="help-inline">${hasErrors(bean: feedbackInstance, field: 'application', 'error')}</span>
 				</div>
 			</div>

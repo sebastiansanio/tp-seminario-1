@@ -8,7 +8,7 @@ class ApplicationCreateService {
 
     static transactional = true
 
-    def createApplication(params,user) {
+    def createApplication(params) {
 		def ad = Ad.get(params.adid)
 		def applicationInstance = new Application(params)
 		applicationInstance.ad = ad

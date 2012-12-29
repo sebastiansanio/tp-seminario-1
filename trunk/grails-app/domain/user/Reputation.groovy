@@ -20,11 +20,13 @@ class Reputation {
 		return user.toString()+" - "+userRole.toString()+": "+value;
 	}
 	
-	def isForOfferer(){
+	public boolean isForOfferer(){
 		return userRole.isOfferer()
 	}
 	
-	def isForClient(){
+	public boolean isForClient(){
 		return userRole.isClient()
 	}
+
+	
 }
