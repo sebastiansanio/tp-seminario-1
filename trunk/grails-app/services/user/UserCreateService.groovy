@@ -23,5 +23,6 @@ class UserCreateService {
 		user.addToPermissions("user:show")
 		user.addToPermissions("feedback:create,show,save")
 		user.save()
+		return user
     }
 }
