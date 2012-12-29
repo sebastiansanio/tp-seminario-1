@@ -68,7 +68,10 @@
 			<g:link action="listMyAcceptedApplications"><i class="icon-th-list"></i> <g:message code="default.listMyAcceptedApplications.label" args="[entityName]"/></g:link>
 		</li>	
 		
-		
+		<li class="${ params.action == "listMyFinalizedApplications" ? 'active' : '' }">
+			<g:link action="listMyFinalizedApplications"><i class="icon-th-list"></i> <g:message code="default.listMyFinalizedApplications.label" args="[entityName]"/></g:link>
+		</li>	
+				
 		
 		<g:if test="${ (params.action == 'show') && applicationInstance.user.username==SecurityUtils.subject.getPrincipal()}">
 			<li class="">

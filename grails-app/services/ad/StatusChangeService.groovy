@@ -55,4 +55,13 @@ class StatusChangeService {
 		application.ad.user.addToPermissions("user:showAllInfo:"+application.user.id)
 		application.ad.user.removeFromPermissions("application:reject,accept:"+application.id)
 	}
+	
+	def finalizeApplication(Application application){
+		
+		if(application.applicantFeedback!=null && application.advertiserFeedback!=null){
+			def finalizedStatus = ApplicationStatus.findByDescription(ApplicationStatus.finalizedLabel)
+			application.applicationStatus = finalizedStatus
+		}
+		
+	}
 }

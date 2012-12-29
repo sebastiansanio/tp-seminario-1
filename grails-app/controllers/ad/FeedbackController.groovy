@@ -7,7 +7,8 @@ import login.*
 class FeedbackController {
 
 	def feedbackCreateService
-	
+	def statusChangeService
+		
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -30,15 +31,18 @@ class FeedbackController {
     }
 
     def save() {
-        def feedbackInstance = new Feedback(params)
+		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def feedbackInstance = feedbackCreateService.prepareFeedbackToSave(params,user)
+		
         if (!feedbackInstance.save(flush: true)) {
             render(view: "create", model: [feedbackInstance: feedbackInstance])
             return
         }
-
+		statusChangeService.finalizeApplication(feedbackInstance.application)
 		flash.message = message(code: 'default.created.message', args: [message(code: 'feedback.label', default: 'Feedback'), feedbackInstance.id])
         redirect(action: "show", id: feedbackInstance.id)
-    }
+    
+	}
 
     def show() {
         def feedbackInstance = Feedback.get(params.id)
