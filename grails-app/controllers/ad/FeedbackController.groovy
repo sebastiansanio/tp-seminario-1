@@ -6,6 +6,8 @@ import login.*
 
 class FeedbackController {
 
+	def feedbackCreateService
+	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -16,13 +18,13 @@ class FeedbackController {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())
 		def application = Application.get(params.applicationid)
 		
-//		if(user==application.user || user==application.ad.user){
-//			def = .createApplication(params,user)
-//			render(view: "create",model:[applicationInstance:applicationInstance])
-//		}else{
-//			redirect(controller:"application",action: "show",id:params.applicationid)
-//		}
-		
+		if((user==application.user && application.applicantFeedback==null)|| (user==application.ad.user && application.advertiserFeedback==null) ){
+			def feedbackInstance = feedbackCreateService.createFeedback(params,user)
+			render(view: "create",model:[feedbackInstance:feedbackInstance])
+		}else{
+			flash.message = "No puede calificar esta aplicación"
+			redirect(controller:"application",action: "show",id:params.applicationid)
+		}
 		
         [feedbackInstance: new Feedback(params)]
     }
