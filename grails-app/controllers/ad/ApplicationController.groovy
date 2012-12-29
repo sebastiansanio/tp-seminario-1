@@ -79,10 +79,7 @@ class ApplicationController {
             return
         }
 		
-		user.addToPermissions("application:delete:"+applicationInstance.id)
-		user.addToPermissions("application:show:"+applicationInstance.id)
-		applicationInstance.ad.user.addToPermissions("application:reject,accept:"+applicationInstance.id)
-		applicationInstance.ad.user.addToPermissions("application:show:"+applicationInstance.id)
+		statusChangeService.activateApplication(applicationInstance)
 		
 		flash.message = message(code: 'default.created.message', args: [message(code: 'application.label', default: 'Application'), applicationInstance.id])
         redirect(action: "show", id: applicationInstance.id)
@@ -123,7 +120,8 @@ class ApplicationController {
 			return
 		}
 		statusChangeService.acceptApplication(applicationInstance)
-		redirect(action: "show", id: applicationInstance.id)
+		flash.message = message(code:'contact.user.label')
+		redirect(controller: "user", action: "show", id: applicationInstance.user.id)
 	}
 	
 	def reject() {
