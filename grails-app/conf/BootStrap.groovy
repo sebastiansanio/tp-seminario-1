@@ -9,9 +9,6 @@ class BootStrap {
 	def userCreateService
 	
     def init = { servletContext ->
-		def user = new User(username:"seminario", passwordHash: new Sha256Hash("seminario").toHex())
-		user.addToPermissions("*:*")
-		user.save()
 						
 		def adType = new AdType(description: AdType.offerLabel)
 		adType.save()
@@ -67,6 +64,12 @@ class BootStrap {
 		userCreateService.createUser("santiago","santiago",place1,"santiago@aaa.com","11111111")
 		userCreateService.createUser("sebastian","sebastian",place1,"sebastian@aaa.com","22222222")
 		userCreateService.createUser("gaston","gaston",place2,"gaston@aaa.com","33333333")
+		
+		(1..50).each{
+			def user = userCreateService.createUser("user"+it,"user"+it,place3,"user"+it+"@aaa.com","NO")
+			user.scoreAsClient(it)
+			user.scoreAsOfferer(50-it)
+		}
 		
 		
 	}
