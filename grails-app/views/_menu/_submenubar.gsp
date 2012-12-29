@@ -42,6 +42,14 @@
 			<g:link action="listOthersWishes"><i class="icon-th-list"></i> <g:message code="default.listOthersWishes.label" args="[entityName]"/></g:link>
 		</li>
 		
+		<li class="${ params.action == "listSuggestedOffers" ? 'active' : '' }">
+			<g:link action="listSuggestedOffers"><i class="icon-th-list"></i> <g:message code="default.listSuggestedOffers.label" args="[entityName]"/></g:link>
+		</li>
+		
+		<li class="${ params.action == "listSuggestedWishes" ? 'active' : '' }">
+			<g:link action="listSuggestedWishes"><i class="icon-th-list"></i> <g:message code="default.listSuggestedWishes.label" args="[entityName]"/></g:link>
+		</li>
+		
 		
 	</ul>
 

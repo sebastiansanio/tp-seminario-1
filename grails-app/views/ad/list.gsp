@@ -16,7 +16,7 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<g:if test="${ params.action == "listOthersWishes" || params.action == "listOthersOffers"}">
+				<g:if test="${ params.action == "listOthersWishes" || params.action == "listOthersOffers" || params.action == "listSuggestedOffers" || params.action == "listSuggestedWishes"}">
 					<g:sortableColumn property="user" title="${message(code: 'ad.user.label', default: 'User')}" />	
 				</g:if>	
 				<g:sortableColumn property="family" title="${message(code: 'ad.family.label', default: 'Family')}" />
@@ -32,7 +32,7 @@
 		<tbody>
 		<g:each in="${adInstanceList}" status="i" var="adInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-				<g:if test="${ params.action == "listOthersWishes" || params.action == "listOthersOffers"}">
+				<g:if test="${ params.action == "listOthersWishes" || params.action == "listOthersOffers" || params.action == "listSuggestedOffers" || params.action == "listSuggestedWishes"}">
 					<td><g:link controller="user" action="show" id="${adInstance.user.id}">${fieldValue(bean: adInstance, field: "user")}</g:link></td>
 				</g:if>
 				<td>${fieldValue(bean: adInstance, field: "family")}</td>

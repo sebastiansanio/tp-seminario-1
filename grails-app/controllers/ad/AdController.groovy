@@ -11,6 +11,7 @@ class AdController {
 	def statusChangeService
 	def limitCheckerService
 	def adCreateService
+	def adSuggestionService
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -81,7 +82,7 @@ class AdController {
 		def user = User.findByUsername(SecurityUtils.subject.getPrincipal())	
 		def adInstance = adCreateService.prepareAdToSave(params,user)
 		
-		boolean canContinue	
+		def canContinue	
 		if(adInstance.isOffer())
 			canContinue=limitCheckerService.checkOffersLimit(user,flash)
 		else
@@ -97,7 +98,6 @@ class AdController {
             return
         }
 
-		
 		statusChangeService.activateAd(adInstance)
 		
 		flash.message = message(code: 'default.created.message', args: [message(code: 'ad.label', default: 'Ad'), adInstance.id])
@@ -126,4 +126,20 @@ class AdController {
 		redirect(action: "index")
 
     }
+	
+	def listSuggestedWishes(){
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def adInstances = adSuggestionService.suggestWishes(currentUser)
+		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
+		render(view: "list",model:model)
+	}
+
+	def listSuggestedOffers(){
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def currentUser = User.findByUsername(SecurityUtils.subject.getPrincipal())
+		def adInstances = adSuggestionService.suggestOffers(currentUser)
+		def model = [adInstanceList: adInstances, adInstanceTotal: adInstances.size()]
+		render(view: "list",model:model)
+	}
 }
