@@ -82,9 +82,16 @@ class BootStrap {
 		
 		(1..50).each{
 			def user = userCreateService.createUser("user"+it,"user"+it,place3,"user"+it+"@aaa.com","NO")
-			user.scoreAsClient(it)
-			user.scoreAsOfferer(50-it)
+			user.scoreAsClient(it*10)
+			user.scoreAsOfferer((50-it)*10)
 		}
+		
+		(51..100).each{
+			def user = userCreateService.createUser("user"+it,"user"+it,place1,"user"+it+"@aaa.com","NO")
+			user.scoreAsClient(it*10)
+			user.scoreAsOfferer((100-it)*10)
+		}
+		
 		
 		
 	}
