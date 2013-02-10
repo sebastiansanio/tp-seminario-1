@@ -5,9 +5,7 @@
 	<ul id="Menu" class="nav nav-pills">
 
 		<g:set var="entityName" value="${message(code: params.controller+'.label', default: params.controller.substring(0,1).toUpperCase() + params.controller.substring(1).toLowerCase())}" />
-		
-
-		
+				
 		<li class="${ params.action == "listMyOffers" ? 'active' : '' }">
 			<g:link action="listMyOffers"><i class="icon-th-list"></i> <g:message code="default.listMyOffers.label" args="[entityName]"/></g:link>
 		</li>
@@ -81,7 +79,7 @@
 		</li>	
 				
 		
-		<g:if test="${ (params.action == 'show') && applicationInstance.user.username==SecurityUtils.subject.getPrincipal()}">
+		<g:if test="${ (params.action == 'show') && applicationInstance.isPending() && applicationInstance.user.username==SecurityUtils.subject.getPrincipal()}">
 			<li class="">
 				<g:render template="/_common/modals/deleteTextLink"/>
 			</li>

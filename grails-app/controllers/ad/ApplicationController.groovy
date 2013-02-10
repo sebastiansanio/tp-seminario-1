@@ -110,6 +110,12 @@ class ApplicationController {
 
     def delete() {
         def applicationInstance = Application.get(params.id)
+		
+		if(!applicationInstance.isPending()){
+			flash.message = "Solo se pueden suspender aplicaciones pendientes"
+			redirect(action: "show",id:applicationInstance.id)
+			return
+		}
 		if (!applicationInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'application.label', default: 'Application'), params.id])
             redirect(action: "listMyApplications")

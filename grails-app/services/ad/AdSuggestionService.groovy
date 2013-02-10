@@ -41,8 +41,6 @@ class AdSuggestionService {
 		
 		def offersFamilies = user.getOffers().family
 		
-		System.out.println(getReputationRule(user.offererReputation).maxPrice)
-		
 		def suggestedWishes = wishesFilteredByPlace.findAll{
 			it.family in  offersFamilies   && it.budget <= getReputationRule(user.offererReputation).maxPrice
 		}
