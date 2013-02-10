@@ -6,6 +6,10 @@ class AdSuggestionService {
 
     static transactional = true
 
+	private ReputationRule getReputationRule(long reputation){
+		ReputationRule.findByBaseReputationLessThanEqualsAndTopReputationGreaterThanEquals(reputation,reputation)
+	}
+	
     def suggestOffers(user) {
 		def offers = AdType.findByDescription(AdType.offerLabel).ads.findAll{
 			it.isActive() && it.user!=user
@@ -19,7 +23,7 @@ class AdSuggestionService {
 		def wishesFamilies = user.getWishes().family
 		
 		def suggestedOffers = offersFilteredByPlace.findAll{
-			it.family in  wishesFamilies
+			it.family in  wishesFamilies   && it.budget <= getReputationRule(user.clientReputation).maxPrice
 		}
 		
 		return suggestedOffers
@@ -37,8 +41,10 @@ class AdSuggestionService {
 		
 		def offersFamilies = user.getOffers().family
 		
+		System.out.println(getReputationRule(user.offererReputation).maxPrice)
+		
 		def suggestedWishes = wishesFilteredByPlace.findAll{
-			it.family in  offersFamilies
+			it.family in  offersFamilies   && it.budget <= getReputationRule(user.offererReputation).maxPrice
 		}
 		
 		return suggestedWishes
