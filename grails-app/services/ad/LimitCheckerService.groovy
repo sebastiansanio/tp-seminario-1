@@ -8,7 +8,7 @@ class LimitCheckerService {
     static transactional = true
 
 	private ReputationRule getReputationRule(long reputation){
-		ReputationRule.find("from ReputationRule as rr where rr.baseReputation<=:reputation and rr.topReputation>=:reputation", [reputation: reputation])
+		ReputationRule.findByBaseReputationLessThanEqualsAndTopReputationGreaterThanEquals(reputation,reputation)
 	}
 	
     def checkOffersLimit(User user,flash) {
