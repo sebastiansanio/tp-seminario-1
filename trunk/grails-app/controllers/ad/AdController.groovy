@@ -83,12 +83,12 @@ class AdController {
 		def adInstance = adCreateService.prepareAdToSave(params,user)
 		
 		def canContinue	
-		if(adInstance.isOffer())
-			canContinue=limitCheckerService.checkOffersLimit(user,flash)
+		if (adInstance.isOffer())
+			canContinue = limitCheckerService.checkOffersLimit(user,flash)
 		else
-			canContinue=limitCheckerService.checkWishesLimit(user,flash)
+			canContinue = limitCheckerService.checkWishesLimit(user,flash)
 
-		if(!canContinue){
+		if (!canContinue) {
             render(view: "create", model: [adInstance: adInstance])
             return
         }
